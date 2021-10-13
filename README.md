@@ -1,6 +1,7 @@
 # pass-keyword-service
 Service for generating keywords about a submitted manuscript. 
 
+
 ## Description
 This service accepts a resolvable URL to a bytestream, which is the user uploaded manuscript.
 
@@ -15,10 +16,14 @@ Here is an example of the output, `keywords`:
   }
 }
 ```
+*Note that for failure, the service outpute a blank `keywords`*
+
 
 ## Configuration
 The service will not require any required environment variables, unless specified. All environment variables not specified will fulfill their default values. 
 
 | Environment Variable  		| Description  		| Default Value |
 | ------------- | ------------- | ------------- |
-| PASS_KEYWORD_MAX | Do not output more than specified number of keywords | -1 |
+| PASS_KEYWORD_MAX | Do not output more than specified number of keywords | 10 |
+
+
