@@ -13,7 +13,7 @@ Here is an example of the output, `keywords`:
 
 ```
 {
-  "keywords": ["keyword1", "keyword2", "keyword3", ..., "keywordN"]
+  "keywords": ["keyword1", "keyword2", "keyword3", ..., "keyword10"]
 }
 ```
 
