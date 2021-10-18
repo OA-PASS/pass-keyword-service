@@ -7,7 +7,9 @@ This service accepts a resolvable URL to a bytestream, which is the user uploade
 
 `http://<host>:<port>/keyword?file=<file>`
 
-The service validates the inputted text file, making checks to ensure the URL accepted is the manuscript. If the file is valid, then the service uses the MALLET (MAchine Learning for LanguagE Toolkit) API to generate keywords about the manuscript. The service then returns to the caller a JSON object that contains the top keywords of the submitted manuscript `keywords`, along with a HTTP response status code of `200` for success.
+The service validates the inputted text file, making checks to ensure the URL accepted is the manuscript. If the file is valid, then the service uses the MALLET (MAchine Learning for LanguagE Toolkit) API to generate keywords about the manuscript. 
+
+The service then returns to the caller a JSON object that contains the top keywords of the submitted manuscript `keywords`, along with a HTTP response status code of `200` for success.
 
 Here is an example of the output, `keywords`:
 
