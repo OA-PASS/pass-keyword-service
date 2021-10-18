@@ -22,10 +22,10 @@ There are two types of failure: one where no keywords are generated, in which `k
 
 ```
 {
-  "error": [
+  "error": {
     "message": "Invalid input file",
     "code": 400
-  ]
+  }
 }
 ```
 
