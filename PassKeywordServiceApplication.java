@@ -10,7 +10,7 @@ import java.util.*;
 import java.util.regex.*;
 import java.io.*;
 
-public class TopicModel {
+public class PassKeywordServiceApplication {
 
     public static void main(String[] args) throws Exception {
 
