@@ -85,6 +85,10 @@
         <pass.doi.service.port>8080</pass.doi.service.port>
     </properties>
 
+    <build>
+        <finalName>pass-keyword-service</finalName>
+    </build>
+
     <dependencies>
         <dependency>
             <groupId>org.dataconservancy.pass</groupId>
