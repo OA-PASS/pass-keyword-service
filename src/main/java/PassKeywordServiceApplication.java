@@ -1,5 +1,3 @@
-package cc.mallet.examples;
-
 import cc.mallet.util.*;
 import cc.mallet.types.*;
 import cc.mallet.pipe.*;
