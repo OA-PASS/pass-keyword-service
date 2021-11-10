@@ -26,12 +26,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.io.StringReader;
 import java.net.URI;
+
 
 import static java.lang.Thread.sleep;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class PassKeywordServlet extends HttpServlet {
 
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    PrintWriter out = response.getWriter();
+    response.setContentType("text/plain");
+
+    String manuscript = request.getParameter("keyword");
+    out.write("Keyword");
+    out.write(" = ");
+    out.write(manuscript);
+
+    if (manuscript == null) {
+      out.write("Parameter keyword not found");
+    }
+
+    out.close();
+  }
 }
