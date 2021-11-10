@@ -39,10 +39,10 @@ public class PassKeywordServlet extends HttpServlet {
     PrintWriter out = response.getWriter();
     response.setContentType("application/json");
 
-    String manuscript = request.getParameter("keyword");
+    String file = request.getParameter("file");
 
     /* Step 1: Check if manuscript is a valid file (i.e. not blank, valid format) */
-    if (!verify(manuscript)) {
+    if (!verify(file)) {
       JsonObject jsonObject = Json.createObjectBuilder()
           .add("error", "Supplied manuscript file is not in valid format.")
           .build();
@@ -52,7 +52,7 @@ public class PassKeywordServlet extends HttpServlet {
     }
 
     /* Step 2: Try to get keywords */
-    String keywords = manuscript; // TODO: Change to empty string ""
+    String keywords = file; // TODO: Change to empty string ""
     JsonObject jsonObject = Json.createObjectBuilder()
         .add("keywords", keywords)
         .build();
