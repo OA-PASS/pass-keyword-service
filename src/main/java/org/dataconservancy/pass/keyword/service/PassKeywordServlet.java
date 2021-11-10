@@ -30,7 +30,6 @@ import java.io.PrintWriter;
 import java.io.StringReader;
 import java.net.URI;
 
-
 import static java.lang.Thread.sleep;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
@@ -38,17 +37,42 @@ public class PassKeywordServlet extends HttpServlet {
 
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     PrintWriter out = response.getWriter();
-    response.setContentType("text/plain");
+    response.setContentType("application/json");
 
     String manuscript = request.getParameter("keyword");
-    out.write("Keyword");
-    out.write(" = ");
-    out.write(manuscript);
 
-    if (manuscript == null) {
-      out.write("Parameter keyword not found");
+    /* Step 1: Check if manuscript is a valid file (i.e. not blank, valid format) */
+    if (!verify(manuscript)) {
+      JsonObject jsonObject = Json.createObjectBuilder()
+          .add("error", "Supplied manuscript file is not in valid format.")
+          .build();
+      out.write(jsonObject.toString());
+      response.setStatus(400);
+      return;
     }
 
+    /* Step 2: Try to get keywords */
+    String keywords = manuscript; // TODO: Change to empty string ""
+    JsonObject jsonObject = Json.createObjectBuilder()
+        .add("keywords", keywords)
+        .build();
+
+    out.write(jsonObject.toString());
+    response.setStatus(200);
+
     out.close();
+  }
+
+  /**
+   *
+   * @param manuscript  manuscript of GET request
+   * @return            true - valid manuscript, false - invalid manuscript (empty, unsupported file)
+   */
+  private boolean verify(String manuscript) {
+    if (manuscript == null) {
+      return false;
+    }
+    // TODO: Add more verification
+    return true;
   }
 }

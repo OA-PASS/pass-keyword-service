@@ -6,12 +6,12 @@
 
     <servlet>
         <servlet-name>PASS Keyword Service Application</servlet-name>
-        <servlet-class>PASSKeywordServlet</servlet-class>
+        <servlet-class>org.dataconservancy.pass.keyword.service.PassKeywordServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>PASS Keyword Service Application</servlet-name>
-        <url-pattern>pass-keyword-service</url-pattern>
+        <url-pattern>/pass-keyword-service</url-pattern>
     </servlet-mapping>
 
 </web-app>
