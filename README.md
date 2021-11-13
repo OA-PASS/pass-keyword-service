@@ -5,7 +5,7 @@ Service for generating keywords about a submitted manuscript.
 ## Description
 This service accepts a resolvable URL to a bytestream, which is the user uploaded manuscript:
 
-`http://<host>:<port>/keyword?file=<file>`
+`http://<host>:<port>/keywords?file=<file>`
 
 The service validates the inputted text file, making checks to ensure the URL accepted is the manuscript. If the file is valid, then the service uses the MALLET (MAchine Learning for LanguagE Toolkit) API to generate keywords about the manuscript. 
 
