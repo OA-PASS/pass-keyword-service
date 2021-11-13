@@ -11,7 +11,7 @@
 
     <servlet-mapping>
         <servlet-name>PASS Keyword Service Application</servlet-name>
-        <url-pattern>/keyword</url-pattern>
+        <url-pattern>/keywords</url-pattern>
     </servlet-mapping>
 
 </web-app>

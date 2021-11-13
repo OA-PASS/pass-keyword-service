@@ -29,6 +29,8 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.net.URI;
+import java.net.URL;
+import java.net.MalformedURLException;
 
 import static java.lang.Thread.sleep;
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -38,11 +40,13 @@ public class PassKeywordServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     PrintWriter out = response.getWriter();
     response.setContentType("application/json");
+    response.setCharacterEncoding("utf-8");
 
-    String file = request.getParameter("file");
+    String url = request.getParameter("file");
+
 
     /* Step 1: Check if manuscript is a valid file (i.e. not blank, valid format) */
-    if (!verify(file)) {
+    if (!verify(url)) {
       JsonObject jsonObject = Json.createObjectBuilder()
           .add("error", "Supplied manuscript file is not in valid format.")
           .build();
@@ -52,27 +56,35 @@ public class PassKeywordServlet extends HttpServlet {
     }
 
     /* Step 2: Try to get keywords */
-    String keywords = file; // TODO: Change to empty string ""
+    String keywords = url; // TODO: Change to empty string ""
     JsonObject jsonObject = Json.createObjectBuilder()
         .add("keywords", keywords)
         .build();
-
     out.write(jsonObject.toString());
     response.setStatus(200);
-
-    out.close();
+    return;
   }
 
   /**
    *
    * @param manuscript  manuscript of GET request
-   * @return            true - valid manuscript, false - invalid manuscript (empty, unsupported file)
+   * @return            true = valid manuscript, false = invalid manuscript (empty, unsupported file)
    */
-  private boolean verify(String manuscript) {
-    if (manuscript == null) {
+  private boolean verify(String urlString) throws MalformedURLException {
+    if (urlString == null) {
       return false;
     }
-    // TODO: Add more verification
+    try {
+      URL url = new URL(urlString);
+      String authority = url.getAuthority();
+      String file = url.getFile();
+      if (!("pass.local".equals(authority))) {
+        return false;
+      }
+    } catch (MalformedURLException e) {
+      return false;
+    }
+
     return true;
   }
 }
