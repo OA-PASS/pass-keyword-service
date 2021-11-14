@@ -75,11 +75,15 @@ public class PassKeywordServlet extends HttpServlet {
       return false;
     }
     try {
-      URL url = new URL(urlString);
-      String scheme = url.getScheme();
+      URL url = new URL(urlString); // validates initial scheme of URL
       String authority = url.getAuthority();
       String file = url.getFile();
-      if ( !(("http".equals(scheme)) && ("pass.local".equals(authority))) ) {
+      String contextPath = "/fcrepo/rest/submissions";
+      String fileContextPath = file.substring(0, contextPath.length());
+      if (!("pass.local".equals(authority))) {
+        return false;
+      } else if (!(contextPath.equals(fileContextPath))) {
+        System.out.println(fileContextPath);
         return false;
       }
     } catch (MalformedURLException e) {
