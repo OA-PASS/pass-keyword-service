@@ -76,9 +76,10 @@ public class PassKeywordServlet extends HttpServlet {
     }
     try {
       URL url = new URL(urlString);
+      String scheme = url.getScheme();
       String authority = url.getAuthority();
       String file = url.getFile();
-      if (!("pass.local".equals(authority))) {
+      if ( !(("http".equals(scheme)) && ("pass.local".equals(authority))) ) {
         return false;
       }
     } catch (MalformedURLException e) {
