@@ -76,20 +76,24 @@ public class PassKeywordServlet extends HttpServlet {
     }
     try {
       URL url = new URL(urlString); // validates initial scheme of URL
+      String protocol = url.getProtocol();
       String authority = url.getAuthority();
       String file = url.getFile();
       String contextPath = "/fcrepo/rest/submissions";
       String fileContextPath = file.substring(0, contextPath.length());
-      if (!("pass.local".equals(authority))) {
+
+      if (!(("http".equals(protocol)) || "https".equals(protocol))) { // Check protocol
         return false;
-      } else if (!(contextPath.equals(fileContextPath))) {
+      }
+      else if (!("pass.local".equals(authority))) { // Check authority = "pass.local"
+        return false;
+      } else if (!(contextPath.equals(fileContextPath))) { // check context path = "/fcrepo/rest/submisions"
         System.out.println(fileContextPath);
         return false;
       }
-    } catch (MalformedURLException e) {
+    } catch (MalformedURLException e) { // catch if URL cannot be made
       return false;
     }
-
     return true;
   }
 }
