@@ -18,6 +18,7 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.json.stream.JsonParsingException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,11 +37,26 @@ import static java.lang.Thread.sleep;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class PassKeywordServlet extends HttpServlet {
+  String hostUrl;
+  String contextPath;
 
+  @Override
+  public void init(ServletConfig config) throws ServletException {
+    super.init(config);
+    if ((hostUrl = getInitParameter("hostUrl")) == null) {
+      hostUrl = "pass.local";
+    }
+    if ((contextPath = getInitParameter("contextPath")) == null) {
+      contextPath = "/fcrepo/rest/submissions";
+    }
+
+  }
+
+  @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    PrintWriter out = response.getWriter();
     response.setContentType("application/json");
     response.setCharacterEncoding("utf-8");
+    ServletOutputStream out = response.getOutputStream();
 
     String url = request.getParameter("file");
 
@@ -50,7 +66,7 @@ public class PassKeywordServlet extends HttpServlet {
       JsonObject jsonObject = Json.createObjectBuilder()
           .add("error", "Supplied manuscript file is not in valid format.")
           .build();
-      out.write(jsonObject.toString());
+      out.write(jsonObject.toString().getBytes("UTF-8"));
       response.setStatus(400);
       return;
     }
@@ -60,7 +76,7 @@ public class PassKeywordServlet extends HttpServlet {
     JsonObject jsonObject = Json.createObjectBuilder()
         .add("keywords", keywords)
         .build();
-    out.write(jsonObject.toString());
+    out.write(jsonObject.toString().getBytes("UTF-8"));
     response.setStatus(200);
     return;
   }
@@ -79,13 +95,12 @@ public class PassKeywordServlet extends HttpServlet {
       String protocol = url.getProtocol();
       String authority = url.getAuthority();
       String file = url.getFile();
-      String contextPath = "/fcrepo/rest/submissions";
       String fileContextPath = file.substring(0, contextPath.length());
 
       if (!(("http".equals(protocol)) || "https".equals(protocol))) { // Check protocol
         return false;
       }
-      else if (!("pass.local".equals(authority))) { // Check authority = "pass.local"
+      else if (!(hostUrl.equals(authority))) { // Check authority = "pass.local"
         return false;
       } else if (!(contextPath.equals(fileContextPath))) { // check context path = "/fcrepo/rest/submisions"
         System.out.println(fileContextPath);
