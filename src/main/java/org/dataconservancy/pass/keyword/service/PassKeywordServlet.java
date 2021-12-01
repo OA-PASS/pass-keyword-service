@@ -13,6 +13,7 @@ import org.dataconservancy.pass.model.Journal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.json.simple.JSONArray;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
@@ -25,16 +26,36 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringReader;
+import java.io.File;
+import java.lang.Exception;
 import java.net.URI;
 import java.net.URL;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 
 import static java.lang.Thread.sleep;
 import static java.util.concurrent.TimeUnit.SECONDS;
+
+import org.apache.pdfbox.cos.COSDocument;
+import org.apache.pdfbox.io.RandomAccessFile;
+import org.apache.pdfbox.pdfparser.PDFParser;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
+
+import cc.mallet.util.*;
+import cc.mallet.types.*;
+import cc.mallet.pipe.*;
+import cc.mallet.pipe.iterator.*;
+import cc.mallet.topics.*;
+
+
+//import package.PassKeywordService;
+//import package.PassKeywordImport;
 
 public class PassKeywordServlet extends HttpServlet {
   String hostUrl;
@@ -49,7 +70,6 @@ public class PassKeywordServlet extends HttpServlet {
     if ((contextPath = getInitParameter("contextPath")) == null) {
       contextPath = "/fcrepo/rest/submissions";
     }
-
   }
 
   @Override
@@ -71,10 +91,46 @@ public class PassKeywordServlet extends HttpServlet {
       return;
     }
 
-    /* Step 2: Try to get keywords */
-    String keywords = url; // TODO: Change to empty string ""
+    /* Step 2: Convert manuscript to .txt */
+    // TODO: manuscript file
+    String manuscript = "\\\\wsl.localhost\\Ubuntu-18.04\\home\\jkim25\\PASS\\pass-keyword-service\\src\\main\\java\\org\\dataconservancy\\pass\\keyword\\service\\nature.pdf";
+    boolean textGenerated = generateTextFromPDF(manuscript);
+    if (!textGenerated) {
+      JsonObject jsonObject = Json.createObjectBuilder()
+          .add("error", "Supplied manuscript file cannot be converted to .txt file.")
+          .build();
+      out.write(jsonObject.toString().getBytes("UTF-8"));
+      response.setStatus(400);
+      return;
+    }
+
+    /* Step 3: Try to get keywords */
+    String dir = "\\\\wsl.localhost\\Ubuntu-18.04\\home\\jkim25\\PASS\\pass-keyword-service\\src\\main\\java\\org\\dataconservancy\\pass\\keyword\\service\\data";
+    PassKeywordImport importer = new PassKeywordImport();
+    InstanceList instances = importer.readDirectory(new File(dir));
+
+    PassKeywordService keywordService = new PassKeywordService();
+    int numTopics = 10;
+    // Train model and save path name to modelPath || TODO: set modelPath if model exists
+    //String modelPath = "\\\\wsl.localhost\\Ubuntu-18.04\\home\\jkim25\\PASS\\pass-keyword-service\\src\\main\\java\\org\\dataconservancy\\pass\\keyword\\service\\model.dat";
+    String modelPath = keywordService.trainParallelTopicModel(numTopics, instances);
+    ArrayList<String> keywords;
+    try {
+      keywords = keywordService.evaluateKeywords(numTopics, modelPath, instances);
+    } catch (Exception e) {
+      JsonObject jsonObject = Json.createObjectBuilder()
+          .add("error", "Cannot find keywords")
+          .build();
+      out.write(jsonObject.toString().getBytes("UTF-8"));
+      response.setStatus(400);
+      return;
+    }
+
+
+    /* Step 4: Output keywords to JSON object */
+    String keys = String.join(", ", keywords);
     JsonObject jsonObject = Json.createObjectBuilder()
-        .add("keywords", keywords)
+        .add("keywords", keys)
         .build();
     out.write(jsonObject.toString().getBytes("UTF-8"));
     response.setStatus(200);
@@ -109,6 +165,36 @@ public class PassKeywordServlet extends HttpServlet {
     } catch (MalformedURLException e) { // catch if URL cannot be made
       return false;
     }
+    return true;
+  }
+
+  /** Private function that converts PDF manuscript to .txt */
+  private static boolean generateTextFromPDF(String filename) throws FileNotFoundException, IOException {
+    if (!filename.toString().endsWith(".pdf")) {
+      return false;
+    }
+    // Load PDF File
+    File f = new File(filename);
+    String parsedText;
+    PDFParser parser = new PDFParser(new RandomAccessFile(f, "r"));
+    parser.parse();
+
+    // Extract Text from PDF File
+    COSDocument cosDoc = parser.getDocument();
+    PDFTextStripper pdfStripper = new PDFTextStripper();
+    PDDocument pdDoc = new PDDocument(cosDoc);
+    parsedText = pdfStripper.getText(pdDoc);
+
+    if (cosDoc != null)
+      cosDoc.close();
+    if (pdDoc != null)
+      pdDoc.close();
+
+    // Save Text File as manuscript.txt
+    File outputFile = new File("\\\\wsl.localhost\\Ubuntu-18.04\\home\\jkim25\\PASS\\pass-keyword-service\\src\\main\\java\\org\\dataconservancy\\pass\\keyword\\service\\sample-data\\00manuscript.txt");
+    PrintWriter pw = new PrintWriter(outputFile);
+    pw.print(parsedText);
+    pw.close();
     return true;
   }
 }

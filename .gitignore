@@ -1,4 +1,6 @@
 .idea
+.run
 lib
 pass-keyword-service.iml
 target
+/src/main/java/org/dataconservancy/pass/keyword/service/sample-data/
