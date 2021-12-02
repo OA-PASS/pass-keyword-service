@@ -18,6 +18,7 @@ import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
+import javax.json.JsonArrayBuilder;
 import javax.json.stream.JsonParsingException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.ServletConfig;
@@ -105,21 +106,17 @@ public class PassKeywordServlet extends HttpServlet {
     }
 
     /* Step 3: Try to get keywords */
-    String dir = "\\\\wsl.localhost\\Ubuntu-18.04\\home\\jkim25\\PASS\\pass-keyword-service\\src\\main\\java\\org\\dataconservancy\\pass\\keyword\\service\\data";
-    PassKeywordImport importer = new PassKeywordImport();
-    InstanceList instances = importer.readDirectory(new File(dir));
-
-    PassKeywordService keywordService = new PassKeywordService();
-    int numTopics = 10;
-    // Train model and save path name to modelPath || TODO: set modelPath if model exists
-    //String modelPath = "\\\\wsl.localhost\\Ubuntu-18.04\\home\\jkim25\\PASS\\pass-keyword-service\\src\\main\\java\\org\\dataconservancy\\pass\\keyword\\service\\model.dat";
-    String modelPath = keywordService.trainParallelTopicModel(numTopics, instances);
+    //String dir = "\\\\wsl.localhost\\Ubuntu-18.04\\home\\jkim25\\PASS\\pass-keyword-service\\src\\main\\java\\org\\dataconservancy\\pass\\keyword\\service\\data";
+    PassKeywordMalletService malletKeywordModel = new PassKeywordMalletService();
+    // Train model and save path name to modelPath || set modelPath if model exists
+    String modelPath = "\\\\wsl.localhost\\Ubuntu-18.04\\home\\jkim25\\PASS\\pass-keyword-service\\src\\main\\resources\\model.dat";
+    //String modelPath = malletKeywordModel.trainParallelTopicModel();
     ArrayList<String> keywords;
     try {
-      keywords = keywordService.evaluateKeywords(numTopics, modelPath, instances);
+      keywords = malletKeywordModel.evaluateKeywords(modelPath);
     } catch (Exception e) {
       JsonObject jsonObject = Json.createObjectBuilder()
-          .add("error", "Cannot find keywords")
+          .add("error", "Cannot evaluate keywords")
           .build();
       out.write(jsonObject.toString().getBytes("UTF-8"));
       response.setStatus(400);
@@ -128,9 +125,17 @@ public class PassKeywordServlet extends HttpServlet {
 
 
     /* Step 4: Output keywords to JSON object */
+    //TODO: MAKE JsonArray
+    JsonArrayBuilder builder = Json.createArrayBuilder();
+    for(int i = 0; i < keywords.size(); i++) {
+      String keyword = keywords.get(i);
+      builder.add(i, keyword);
+    }
+    JsonArray arr = builder.build();
+
     String keys = String.join(", ", keywords);
     JsonObject jsonObject = Json.createObjectBuilder()
-        .add("keywords", keys)
+        .add("keywords", arr)
         .build();
     out.write(jsonObject.toString().getBytes("UTF-8"));
     response.setStatus(200);
