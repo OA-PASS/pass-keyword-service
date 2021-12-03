@@ -4,5 +4,5 @@ import java.util.ArrayList;
 import java.lang.Exception;
 
 public interface PassKeywordService {
-  ArrayList<String> evaluateKeywords() throws Exception;
+  ArrayList<String> evaluateKeywords(String parsedText) throws Exception;
 }
