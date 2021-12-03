@@ -20,12 +20,19 @@ Here is an example of the output, `keywords`:
 ```
 
 ### Failure Handling
-There are two types of failure: one where no keywords are generated, in which `keywords` will be an empty JSON object, and when the inputted URL is invalid. In this invalid case, a `400` HTTP code will arise along with a JSON error response:
+There are four types of failures:
+Error Type | Description | Error Message Response |
+---------- | ----------- | ---------------------- |
+Invalid URL Format | URL request containing manuscript is not in the correct configuration as configued in the web.xml | `Supplied URL is not in valid format.`
+Unable to Parse URL input stream | Cannot parse PDF contents of URL request to parsed text | `Supplied manuscript file cannot be parsed.`
+Unable to Evaluate Keywords | Cannot evaluate keywords using PassKeywordService | `Cannot evaluate keywords`
+No Keywords Found | No keywords could be found from manuscript | `No Keywords found`
 
+In each invalid case, a `400` HTTP code will arise along with a JSON error response with the relevant error message:
 ```
 {
   "error": {
-    "message": "Invalid input file",
+    "message": "Error Response Here",
     "code": 400
   }
 }
