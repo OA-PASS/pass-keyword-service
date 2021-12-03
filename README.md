@@ -15,7 +15,12 @@ Here is an example of the output, `keywords`:
 
 ```
 {
-  "keywords": ["keyword1", "keyword2", "keyword3", ..., "keyword10"]
+  keywords: 
+    0:  "keyword0"
+    1:  "keyword1"
+    2:  "keyword2"
+    ...
+    n:  "keywordn"
 }
 ```
 
@@ -31,9 +36,9 @@ No Keywords Found | No keywords could be found from manuscript | `No Keywords fo
 In each invalid case, a `400` HTTP code will arise along with a JSON error response with the relevant error message:
 ```
 {
-  "error": {
-    "message": "Error Response Here",
-    "code": 400
+  error: {
+    message: "Error Response Here",
+    code: 400
   }
 }
 ```
