@@ -54,7 +54,7 @@ public class PassKeywordServlet extends HttpServlet {
 
 
     /* Step 1: Check if manuscript is a valid file (i.e. not blank, valid format) */
-    if (verify(url)) {
+    if (!verify(url)) {
       JsonObject jsonObject = Json.createObjectBuilder()
           .add("error", "Supplied URL is not in valid format.")
           .build();
