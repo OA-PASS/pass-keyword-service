@@ -56,7 +56,7 @@ public class PassKeywordServlet extends HttpServlet {
     /* Step 1: Check if manuscript is a valid file (i.e. not blank, valid format) */
     if (verify(url)) {
       JsonObject jsonObject = Json.createObjectBuilder()
-          .add("error", "Supplied manuscript file is not in valid format.")
+          .add("error", "Supplied URL is not in valid format.")
           .build();
       out.write(jsonObject.toString().getBytes("UTF-8"));
       response.setStatus(400);
@@ -86,6 +86,15 @@ public class PassKeywordServlet extends HttpServlet {
     } catch (Exception e) {
       JsonObject jsonObject = Json.createObjectBuilder()
           .add("error", "Cannot evaluate keywords")
+          .build();
+      out.write(jsonObject.toString().getBytes("UTF-8"));
+      response.setStatus(400);
+      return;
+    }
+
+    if (keywords == null) {
+      JsonObject jsonObject = Json.createObjectBuilder()
+          .add("error", "No keywords found.")
           .build();
       out.write(jsonObject.toString().getBytes("UTF-8"));
       response.setStatus(400);
