@@ -12,6 +12,7 @@ import java.io.*;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -23,114 +24,24 @@ import java.lang.Exception;
 /** Represents PASS-Keyword service which uses MALLET's Parallel Topic Model to extract keywords from a given manuscript
  * @author Jihoon Kim
  */
-public class PassKeywordMalletService {
-    /** Represents number of topics to extract from manuscript */
-    int numTopics = 5;
-    String dirManuscript = "\\\\wsl.localhost\\Ubuntu-18.04\\home\\jkim25\\PASS\\pass-keyword-service\\src\\main\\java\\org\\dataconservancy\\pass\\keyword\\service\\data";
-    /** Object used to store manuscript text file */
-    InstanceList instances;
-    /** Object used to pipe through and clean manuscript for keyword extraction */
-    Pipe pipe;
-
-    /** Creates PassKeywrodMalletService by building the pipe and instances */
-    public PassKeywordMalletService() {
-        pipe = buildPipe();
-        instances = readDirectory(new File(dirManuscript));
-    }
+public class PassKeywordMalletService implements PassKeywordService {
+    String dirManuscript = "\\\\wsl.localhost\\Ubuntu-18.04\\home\\jkim25\\PASS\\pass-keyword-service\\src\\main\\java\\org\\dataconservancy\\pass\\keyword\\service\\data\\manuscript.txt";
 
     /** Builds pipe that manipulates manuscript for extraction
      *
      * @return A Pipe object that converts a manuscript to UTF-8 encoding and transforms manuscript to lowercase, tokens, and without stopwords
      */
-    public Pipe buildPipe() {
+    private Pipe buildPipe() {
         String stopList = "\\\\wsl.localhost\\Ubuntu-18.04\\home\\jkim25\\PASS\\pass-keyword-service\\src\\main\\resources\\en.txt";
         ArrayList pipeList = new ArrayList();
 
         pipeList.add(new Input2CharSequence("UTF-8"));
         pipeList.add( new CharSequenceLowercase() );
         pipeList.add( new CharSequence2TokenSequence(Pattern.compile("\\p{L}[\\p{L}\\p{P}]+\\p{L}")) );
-        pipeList.add( new TokenSequenceRemoveStopwords(new File(stopList), "UTF-8", false, false, false) );
+        pipeList.add( new TokenSequenceRemoveStopwords(new File(stopList), "UTF-8", false, false, false) ); // use inputstream apachecommonutils
         pipeList.add( new TokenSequence2FeatureSequence() );
 
         return new SerialPipes(pipeList);
-    }
-
-    /** Reads the directory in which the manuscript is contained and runs through pipes to clean and sort manuscript
-     * @param directory The directory containing file
-     * @return InstanceList of manuscript
-     */
-    public InstanceList readDirectory(File directory) {
-        return readDirectories(new File[] {directory});
-    }
-
-    /** Helper function to read directories of manuscript
-     * @param directories The directories containing manuscript
-     * @return InstanceList of manuscript
-     */
-    private InstanceList readDirectories(File[] directories) {
-
-        // Construct a file iterator, starting with the
-        //  specified directories, and recursing through subdirectories.
-        // The second argument specifies a FileFilter to use to select
-        //  files within a directory.
-        // The third argument is a Pattern that is applied to the
-        //   filename to produce a class label. In this case, I've
-        //   asked it to use the last directory name in the path.
-        FileIterator iterator =
-            new FileIterator(directories,
-                new TxtFilter(),
-                FileIterator.LAST_DIRECTORY);
-
-        // Construct a new instance list, passing it the pipe
-        //  we want to use to process instances.
-        InstanceList instances = new InstanceList(pipe);
-
-        // Now process each instance provided by the iterator.
-        instances.addThruPipe(iterator);
-
-        return instances;
-    }
-
-    /** This class illustrates how to build a simple file filter */
-    class TxtFilter implements FileFilter {
-
-        /** Test whether the string representation of the file
-         *   ends with the correct extension. Note that {@ref FileIterator}
-         *   will only call this filter if the file is not a directory,
-         *   so we do not need to test that it is a file.
-         */
-        public boolean accept(File file) {
-            return file.toString().endsWith(".txt");
-        }
-    }
-
-    /** Trains a ParallelTopicModel and saves model to path
-     *
-     * @return modelPath Path of model saved
-     * @throws IOException
-     */
-    public String trainParallelTopicModel() throws IOException {
-        // Create a model with 100 topics, alpha_t = 0.01, beta_w = 0.01
-        //  Note that the first parameter is passed as the sum over topics, while
-        //  the second is the parameter for a single dimension of the Dirichlet prior.
-        ParallelTopicModel model = new ParallelTopicModel(numTopics, 1.0, 0.01);
-
-        model.addInstances(instances);
-
-        // Use two parallel samplers, which each look at one half the corpus and combine
-        //  statistics after every iteration.
-        model.setNumThreads(2);
-
-        int iterations = 500;
-        // Run the model for iterations and stop (50 is for testing only,
-        //  for real applications, use 1000 to 2000 iterations)
-        model.setNumIterations(iterations);
-        model.estimate();
-
-        // Save model after iterations
-        String modelPath = "src/main/resources/model.dat";
-        model.write(new File(modelPath));
-        return modelPath;
     }
 
     /** Loads a saved ParallelTopicModel to evaulate the keywords of given manuscript
@@ -140,11 +51,35 @@ public class PassKeywordMalletService {
      * @throws IOException
      * @throws Exception
      */
-    public ArrayList<String> evaluateKeywords(String modelName) throws IOException, Exception {
-        Alphabet dataAlphabet = instances.getDataAlphabet();
-        ParallelTopicModel model = ParallelTopicModel.read(new File(modelName));
+    public ArrayList<String> evaluateKeywords() throws IOException, Exception {
+        // Create object used to pipe through and clean manuscript (UTF-8 encoding, Lowercase, Tokenize, Remove Stopwords)
+        Pipe pipe = buildPipe();
+
+        // Create InstanceList which is used to store manuscript and go through pipes for keyword extraction
+        InstanceList instances = new InstanceList(pipe);
+        Reader fileReader = new InputStreamReader(new FileInputStream(new File(dirManuscript)), "UTF-8");
+        instances.addThruPipe(new CsvIterator (fileReader, Pattern.compile("^(\\S*)[\\s,]*(\\S*)[\\s,]*(.*)$"),
+            3, 2, 1)); // data, label, name fields
+
+        // Create a model with 100 topics, alpha_t = 0.01, beta_w = 0.01
+        //  Note that the first parameter is passed as the sum over topics, while
+        //  the second is the parameter for a single dimension of the Dirichlet prior.
+        int numTopics = 5;
+        ParallelTopicModel model = new ParallelTopicModel(numTopics, 1.0, 0.01);
         model.addInstances(instances);
+
+        // Use two parallel samplers, which each look at one half the corpus and combine
+        //  statistics after every iteration.
+        model.setNumThreads(2);
+
+        // Run the model for iterations and stop (50 is for testing only,
+        //  for real applications, use 1000 to 2000 iterations)
+        int iterations = 100;
+        model.setNumIterations(iterations);
         model.estimate();
+
+        // The data alphabet maps word IDs to strings
+        Alphabet dataAlphabet = instances.getDataAlphabet();
 
         // Estimate the topic distribution of the first instance,
         //  given the current Gibbs state.

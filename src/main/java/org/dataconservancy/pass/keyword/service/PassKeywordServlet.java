@@ -61,6 +61,7 @@ import cc.mallet.topics.*;
 public class PassKeywordServlet extends HttpServlet {
   String hostUrl;
   String contextPath;
+  PassKeywordService passKeywordService;
 
   @Override
   public void init(ServletConfig config) throws ServletException {
@@ -71,6 +72,8 @@ public class PassKeywordServlet extends HttpServlet {
     if ((contextPath = getInitParameter("contextPath")) == null) {
       contextPath = "/fcrepo/rest/submissions";
     }
+    passKeywordService = new PassKeywordMalletService();
+
   }
 
   @Override
@@ -107,13 +110,9 @@ public class PassKeywordServlet extends HttpServlet {
 
     /* Step 3: Try to get keywords */
     //String dir = "\\\\wsl.localhost\\Ubuntu-18.04\\home\\jkim25\\PASS\\pass-keyword-service\\src\\main\\java\\org\\dataconservancy\\pass\\keyword\\service\\data";
-    PassKeywordMalletService malletKeywordModel = new PassKeywordMalletService();
-    // Train model and save path name to modelPath || set modelPath if model exists
-    String modelPath = "\\\\wsl.localhost\\Ubuntu-18.04\\home\\jkim25\\PASS\\pass-keyword-service\\src\\main\\resources\\model.dat";
-    //String modelPath = malletKeywordModel.trainParallelTopicModel();
     ArrayList<String> keywords;
     try {
-      keywords = malletKeywordModel.evaluateKeywords(modelPath);
+      keywords = passKeywordService.evaluateKeywords();
     } catch (Exception e) {
       JsonObject jsonObject = Json.createObjectBuilder()
           .add("error", "Cannot evaluate keywords")
@@ -123,19 +122,14 @@ public class PassKeywordServlet extends HttpServlet {
       return;
     }
 
-
     /* Step 4: Output keywords to JSON object */
-    //TODO: MAKE JsonArray
-    JsonArrayBuilder builder = Json.createArrayBuilder();
+    JsonArrayBuilder jsonKeywordArrayBuilder = Json.createArrayBuilder();
     for(int i = 0; i < keywords.size(); i++) {
-      String keyword = keywords.get(i);
-      builder.add(i, keyword);
+      jsonKeywordArrayBuilder.add(i, keywords.get(i));
     }
-    JsonArray arr = builder.build();
-
-    String keys = String.join(", ", keywords);
+    JsonArray jsonKeywordArray = jsonKeywordArrayBuilder.build();
     JsonObject jsonObject = Json.createObjectBuilder()
-        .add("keywords", arr)
+        .add("keywords", jsonKeywordArray)
         .build();
     out.write(jsonObject.toString().getBytes("UTF-8"));
     response.setStatus(200);
@@ -196,7 +190,7 @@ public class PassKeywordServlet extends HttpServlet {
       pdDoc.close();
 
     // Save Text File as manuscript.txt
-    File outputFile = new File("\\\\wsl.localhost\\Ubuntu-18.04\\home\\jkim25\\PASS\\pass-keyword-service\\src\\main\\java\\org\\dataconservancy\\pass\\keyword\\service\\sample-data\\00manuscript.txt");
+    File outputFile = new File("\\\\wsl.localhost\\Ubuntu-18.04\\home\\jkim25\\PASS\\pass-keyword-service\\src\\main\\java\\org\\dataconservancy\\pass\\keyword\\service\\data\\manuscript.txt");
     PrintWriter pw = new PrintWriter(outputFile);
     pw.print(parsedText);
     pw.close();
