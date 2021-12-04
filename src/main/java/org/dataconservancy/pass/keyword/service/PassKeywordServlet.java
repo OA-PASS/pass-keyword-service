@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.InputStream;
-import java.io.OutputStream;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -85,7 +84,7 @@ public class PassKeywordServlet extends HttpServlet {
       keywords = passKeywordService.evaluateKeywords(parsedText);
     } catch (Exception e) {
       JsonObject jsonObject = Json.createObjectBuilder()
-          .add("error", "Cannot evaluate keywords")
+          .add("error", "IOException thrown: Cannot evaluate keywords")
           .build();
       out.write(jsonObject.toString().getBytes("UTF-8"));
       response.setStatus(400);
@@ -107,6 +106,7 @@ public class PassKeywordServlet extends HttpServlet {
       jsonKeywordArrayBuilder.add(i, keywords.get(i));
     }
     JsonArray jsonKeywordArray = jsonKeywordArrayBuilder.build();
+
     JsonObject jsonObject = Json.createObjectBuilder()
         .add("keywords", jsonKeywordArray)
         .build();
@@ -120,7 +120,7 @@ public class PassKeywordServlet extends HttpServlet {
    * @param manuscript  manuscript of GET request
    * @return            true = valid manuscript, false = invalid manuscript (empty, unsupported file)
    */
-  private boolean verify(String urlString) throws MalformedURLException {
+  public boolean verify(String urlString) {
     if (urlString == null) {
       return false;
     }
@@ -152,7 +152,7 @@ public class PassKeywordServlet extends HttpServlet {
    * @return parsedText String of text parsed from input
    * @throws IOException
    */
-  private static String generateTextFromPDF(InputStream input) throws IOException {
+  public static String generateTextFromPDF(InputStream input) throws IOException {
     String parsedText;
     try {
       PDFParser parser = new PDFParser(new RandomAccessBuffer(input));
