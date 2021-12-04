@@ -31,21 +31,21 @@ public class PassKeywordMalletService implements PassKeywordService {
      * @throws IOException
      * @throws Exception
      */
-    public ArrayList<String> evaluateKeywords(String parsedText) throws IOException, Exception {
+    public ArrayList<String> evaluateKeywords(String parsedText) throws IOException {
         // Create object used to pipe through and clean manuscript (UTF-8 encoding, Lowercase, Tokenize, Remove Stopwords)
         Pipe pipe;
         try {
             pipe = buildPipe();
-        } catch (Exception e) {
-            return null;
+        } catch (IOException e) {
+            throw new IOException();
         }
         // Create InstanceList which is used to store manuscript and go through pipes for keyword extraction
         InstanceList instances = new InstanceList(pipe);
         Reader fileReader;
         try {
             fileReader = new InputStreamReader(new StringBufferInputStream(parsedText), "UTF-8");
-        } catch (Exception e2) {
-            return null;
+        } catch (IOException e2) {
+            throw new IOException();
         }
         instances.addThruPipe(new CsvIterator (fileReader, Pattern.compile("^(\\S*)[\\s,]*(\\S*)[\\s,]*(.*)$"),
             3, 2, 1)); // data, label, name fields
@@ -68,15 +68,20 @@ public class PassKeywordMalletService implements PassKeywordService {
         try {
             model.estimate();
         } catch (Exception e3) {
-            return null;
+            return null; // return null for inability estimate keywords
         }
+
         // The data alphabet maps word IDs to strings
         Alphabet dataAlphabet = instances.getDataAlphabet();
 
         // Estimate the topic distribution of the first instance,
         //  given the current Gibbs state.
-        double[] topicDistribution = model.getTopicProbabilities(0);
-
+        double[] topicDistribution;
+        try {
+            topicDistribution = model.getTopicProbabilities(0);
+        } catch (Exception e5) {
+            return null; // return null if topicDistribution cannot be retrieved (no topics)
+        }
         // Get an array of sorted sets of word ID/count pairs
         ArrayList<TreeSet<IDSorter>> topicSortedWords = model.getSortedWords();
 
@@ -99,12 +104,7 @@ public class PassKeywordMalletService implements PassKeywordService {
      * @return A Pipe object that converts a manuscript to UTF-8 encoding and transforms manuscript to lowercase, tokens, and without stopwords
      */
     private Pipe buildPipe() throws IOException {
-        String[] stopList;
-        try {
-            stopList = getStopList();
-        } catch (IOException ex) {
-            return null;
-        }
+        String[] stopList = getStopList();
         TokenSequenceRemoveStopwords stopwordsRemover = new TokenSequenceRemoveStopwords(false, false);
         stopwordsRemover.addStopWords(stopList);
 
@@ -124,19 +124,15 @@ public class PassKeywordMalletService implements PassKeywordService {
      * @throws IOException
      */
     private String[] getStopList() throws IOException {
-        try {
-            InputStream inputStream = this.getClass().getResourceAsStream("/en.txt");
-            InputStreamReader isReader = new InputStreamReader(inputStream);
-            BufferedReader reader = new BufferedReader(isReader);
-            StringBuffer stopWords = new StringBuffer();
-            String str;
-            while((str = reader.readLine())!= null){
-                stopWords.append(str);
-            }
-            String stopList[] = stopWords.toString().split("\n");
-            return stopList;
-        } catch (IOException e) {
-            return null;
+        InputStream inputStream = this.getClass().getResourceAsStream("/en.txt");
+        InputStreamReader isReader = new InputStreamReader(inputStream);
+        BufferedReader reader = new BufferedReader(isReader);
+        StringBuffer stopWords = new StringBuffer();
+        String str;
+        while((str = reader.readLine())!= null){
+            stopWords.append(str);
         }
+        String stopList[] = stopWords.toString().split("\n");
+        return stopList;
     }
 }
