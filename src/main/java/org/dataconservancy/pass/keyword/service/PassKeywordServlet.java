@@ -26,7 +26,12 @@ import org.apache.pdfbox.pdfparser.PDFParser;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class PassKeywordServlet extends HttpServlet {
+  private static final Logger LOG = LoggerFactory.getLogger(PassKeywordServlet.class);
+
   String hostUrl;
   String contextPath;
   PassKeywordService passKeywordService;
@@ -49,16 +54,20 @@ public class PassKeywordServlet extends HttpServlet {
     response.setCharacterEncoding("utf-8");
     ServletOutputStream out = response.getOutputStream();
 
+    LOG.info("Servicing new request ... ");
+
     String url = request.getParameter("file");
 
 
     /* Step 1: Check if manuscript is a valid file (i.e. not blank, valid format) */
-    if (!verify(url)) {
+    if (verify(url)) {
+      String message = "Supplied URL is not in valid format.";
       JsonObject jsonObject = Json.createObjectBuilder()
-          .add("error", "Supplied URL is not in valid format.")
+          .add("error", message)
           .build();
       out.write(jsonObject.toString().getBytes("UTF-8"));
       response.setStatus(400);
+      LOG.info(message);
       return;
     }
 
@@ -67,14 +76,30 @@ public class PassKeywordServlet extends HttpServlet {
     // get InputStream of url
     InputStream manuscriptInput = manuscript.openStream();
     // Parse text from InputStream
-    String parsedText = generateTextFromPDF(manuscriptInput);
-
-    if (parsedText == null) {
+    LOG.info("Parsing text from requested URL");
+    String parsedText;
+    try {
+      parsedText = generateTextFromPDF(manuscriptInput);
+    } catch (IOException e) {
+      String message = "Supplied manuscript file cannot be parsed. Must be PDF Format.";
       JsonObject jsonObject = Json.createObjectBuilder()
-          .add("error", "Supplied manuscript file cannot be parsed.")
+          .add("error", message)
           .build();
       out.write(jsonObject.toString().getBytes("UTF-8"));
-      response.setStatus(400);
+      response.setStatus(415);
+      LOG.info(message);
+      LOG.debug("IOException thrown. URL file must be valid PDF format.");
+      return;
+    }
+
+    if (parsedText == null) {
+      String message = "Supplied manuscript file cannot be parsed. No Text Parsed.";
+      JsonObject jsonObject = Json.createObjectBuilder()
+          .add("error", message)
+          .build();
+      out.write(jsonObject.toString().getBytes("UTF-8"));
+      response.setStatus(415);
+      LOG.info(message);
       return;
     }
 
@@ -82,21 +107,27 @@ public class PassKeywordServlet extends HttpServlet {
     ArrayList<String> keywords;
     try {
       keywords = passKeywordService.evaluateKeywords(parsedText);
-    } catch (Exception e) {
+    } catch (IOException e) {
+      String message = "IOException thrown: cannot evaluate keywords.";
       JsonObject jsonObject = Json.createObjectBuilder()
-          .add("error", "IOException thrown: Cannot evaluate keywords")
+          .add("error", message)
           .build();
       out.write(jsonObject.toString().getBytes("UTF-8"));
-      response.setStatus(400);
+      response.setStatus(422);
+      LOG.info(message);
+      LOG.debug("Note: MALLET based function exceptions (Java.lang.Exception) are masked as IOException");
       return;
     }
 
-    if (keywords == null) {
+    if (keywords == null) { // This should almost never be the case since IOException is thrown for empty manuscript
+      String message = "No keywords found.";
       JsonObject jsonObject = Json.createObjectBuilder()
-          .add("error", "No keywords found.")
+          .add("error", message)
           .build();
       out.write(jsonObject.toString().getBytes("UTF-8"));
-      response.setStatus(400);
+      response.setStatus(500);
+      LOG.info(message);
+      LOG.debug("This should almost never be the case.");
       return;
     }
 
@@ -112,6 +143,7 @@ public class PassKeywordServlet extends HttpServlet {
         .build();
     out.write(jsonObject.toString().getBytes("UTF-8"));
     response.setStatus(200);
+    LOG.info("Successfully extracted keywords");
     return;
   }
 
@@ -132,15 +164,22 @@ public class PassKeywordServlet extends HttpServlet {
       String fileContextPath = file.substring(0, contextPath.length());
 
       if (!(("http".equals(protocol)) || "https".equals(protocol))) { // Check protocol
+        LOG.info("Invalid Protocol");
+        LOG.debug("Protocol must be http or https | Request protocol: " + protocol);
         return false;
       }
       else if (!(hostUrl.equals(authority))) { // Check authority = "pass.local"
+        LOG.info("Invalid Authority");
+        LOG.debug("web.xml configuration: " + hostUrl + " | Request Authority: " + authority);
         return false;
       } else if (!(contextPath.equals(fileContextPath))) { // check context path = "/fcrepo/rest/submisions"
-        System.out.println(fileContextPath);
+        LOG.info("Invalid Context Path");
+        LOG.debug("web.xml context path: " + contextPath + " | Request context path: " + fileContextPath);
         return false;
       }
     } catch (MalformedURLException e) { // catch if URL cannot be made
+      LOG.info("Malformed URL");
+      LOG.debug("MalformedURLException caught");
       return false;
     }
     return true;
@@ -154,23 +193,19 @@ public class PassKeywordServlet extends HttpServlet {
    */
   public static String generateTextFromPDF(InputStream input) throws IOException {
     String parsedText;
-    try {
-      PDFParser parser = new PDFParser(new RandomAccessBuffer(input));
-      parser.parse();
+    PDFParser parser = new PDFParser(new RandomAccessBuffer(input));
+    parser.parse();
 
-      // Extract Text from PDF File
-      COSDocument cosDoc = parser.getDocument();
-      PDFTextStripper pdfStripper = new PDFTextStripper();
-      PDDocument pdDoc = new PDDocument(cosDoc);
-      parsedText = pdfStripper.getText(pdDoc);
+    // Extract Text from PDF File
+    COSDocument cosDoc = parser.getDocument();
+    PDFTextStripper pdfStripper = new PDFTextStripper();
+    PDDocument pdDoc = new PDDocument(cosDoc);
+    parsedText = pdfStripper.getText(pdDoc);
 
-      if (cosDoc != null)
-        cosDoc.close();
-      if (pdDoc != null)
-        pdDoc.close();
-    } catch (IOException e) {
-      return null;
-    }
+    if (cosDoc != null)
+      cosDoc.close();
+    if (pdDoc != null)
+      pdDoc.close();
 
     return parsedText;
   }

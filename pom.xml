@@ -52,6 +52,7 @@
         <cc.mallet.version>2.0.8</cc.mallet.version>
         <org.apache.pdfbox.version>2.0.3</org.apache.pdfbox.version>
         <org.junit.jupiter.version>5.8.2</org.junit.jupiter.version>
+        <slf4j.version>1.7.25</slf4j.version>
     </properties>
 
     <build>
@@ -113,6 +114,11 @@
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${org.junit.jupiter.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
         </dependency>
     </dependencies>
 
