@@ -53,11 +53,9 @@ public class PassKeywordServlet extends HttpServlet {
     response.setContentType("application/json");
     response.setCharacterEncoding("utf-8");
     ServletOutputStream out = response.getOutputStream();
-
     LOG.info("Servicing new request ... ");
 
     String url = request.getParameter("file");
-
 
     /* Step 1: Check if manuscript is a valid file (i.e. not blank, valid format) */
     if (verify(url)) {
@@ -91,7 +89,6 @@ public class PassKeywordServlet extends HttpServlet {
       LOG.debug("IOException thrown. URL file must be valid PDF format.");
       return;
     }
-
     if (parsedText == null) {
       String message = "Supplied manuscript file cannot be parsed. No Text Parsed.";
       JsonObject jsonObject = Json.createObjectBuilder()
@@ -118,7 +115,6 @@ public class PassKeywordServlet extends HttpServlet {
       LOG.debug("Note: MALLET based function exceptions (Java.lang.Exception) are masked as IOException");
       return;
     }
-
     if (keywords == null) { // This should almost never be the case since IOException is thrown for empty manuscript
       String message = "No keywords found.";
       JsonObject jsonObject = Json.createObjectBuilder()
@@ -152,7 +148,7 @@ public class PassKeywordServlet extends HttpServlet {
    * @param manuscript  manuscript of GET request
    * @return            true = valid manuscript, false = invalid manuscript (empty, unsupported file)
    */
-  public boolean verify(String urlString) {
+  protected boolean verify(String urlString) {
     if (urlString == null) {
       return false;
     }
@@ -181,6 +177,8 @@ public class PassKeywordServlet extends HttpServlet {
       LOG.info("Malformed URL");
       LOG.debug("MalformedURLException caught");
       return false;
+    } catch (Exception e) {
+      return false; // refers to line 164, IndexOutOfBounds exception
     }
     return true;
   }
@@ -191,22 +189,26 @@ public class PassKeywordServlet extends HttpServlet {
    * @return parsedText String of text parsed from input
    * @throws IOException
    */
-  public static String generateTextFromPDF(InputStream input) throws IOException {
-    String parsedText;
-    PDFParser parser = new PDFParser(new RandomAccessBuffer(input));
-    parser.parse();
+  protected static String generateTextFromPDF(InputStream input) throws IOException {
+    try {
+      String parsedText;
+      PDFParser parser = new PDFParser(new RandomAccessBuffer(input));
+      parser.parse();
 
-    // Extract Text from PDF File
-    COSDocument cosDoc = parser.getDocument();
-    PDFTextStripper pdfStripper = new PDFTextStripper();
-    PDDocument pdDoc = new PDDocument(cosDoc);
-    parsedText = pdfStripper.getText(pdDoc);
+      // Extract Text from PDF File
+      COSDocument cosDoc = parser.getDocument();
+      PDFTextStripper pdfStripper = new PDFTextStripper();
+      PDDocument pdDoc = new PDDocument(cosDoc);
+      parsedText = pdfStripper.getText(pdDoc);
 
-    if (cosDoc != null)
-      cosDoc.close();
-    if (pdDoc != null)
-      pdDoc.close();
+      if (cosDoc != null)
+        cosDoc.close();
+      if (pdDoc != null)
+        pdDoc.close();
 
-    return parsedText;
+      return parsedText;
+    } catch (Exception e) {
+      throw new IOException(); // IOException thrown if any exception thrown in this method
+    }
   }
 }
