@@ -26,19 +26,18 @@ Here is an example of the output, `keywords`:
 
 ### Failure Handling
 There are four types of failures:
-Error Type | Description | Error Message Response |
----------- | ----------- | ---------------------- |
-Invalid URL Format | URL request containing manuscript is not in the correct configuration as configued in the web.xml | `Supplied URL is not in valid format.`
-Unable to Parse URL input stream | Cannot parse PDF contents of URL request to parsed text | `Supplied manuscript file cannot be parsed.`
-Unable to Evaluate Keywords | Cannot evaluate keywords using PassKeywordService | `Cannot evaluate keywords.`
-No Keywords Found | No keywords could be found from manuscript | `No Keywords found.`
+Error Type | Description | Error Message Response | Response Code
+---------- | ----------- | ---------------------- | -------------|
+Invalid URL Format | URL request containing manuscript is not in the correct configuration as configued in the web.xml | `Supplied URL is not in valid format.` | 400
+Unable to Parse URL input stream | Cannot parse PDF contents of URL request to parsed text | `Supplied manuscript file cannot be parsed.` | 415
+Unable to Evaluate Keywords | Cannot evaluate keywords using PassKeywordService | `Cannot evaluate keywords.` | 422
+No Keywords Found | No keywords could be found from manuscript | `No Keywords found.` | 500
 
-In each invalid case, a `400` HTTP code will arise along with a JSON error response with the relevant error message:
+In each error case, a JSON object is outputted with the following format:
 ```
 {
   error: {
     message: "Error Response Here",
-    code: 400
   }
 }
 ```
@@ -48,4 +47,3 @@ The service will not require any required environment variables, unless specifie
 
 | Environment Variable  		| Description  		| Default Value |
 | ------------- | ------------- | ------------- |
-| PASS_KEYWORD_MAX | Do not output more than specified number of keywords | 10 |
