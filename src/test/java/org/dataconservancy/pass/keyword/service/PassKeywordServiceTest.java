@@ -33,15 +33,14 @@ public class PassKeywordServiceTest {
   }
 
   @Test
-  @DisplayName("evaluateKeywords() returns null given empty input")
+  @DisplayName("evaluateKeywords() returns IOException given empty input")
   public void testEvaluateKeywordsEmptyInput() {
     String parsedText = "";
     try {
       ArrayList<String> keywords = passKeywordService.evaluateKeywords(parsedText);
-      assertEquals(keywords, null);
-      return;
+      fail("Expected IOException, but not thrown!");
     } catch (IOException e) {
-      fail("Incorrectly caught IOException for empty input!");
+      return;
     }
   }
 
