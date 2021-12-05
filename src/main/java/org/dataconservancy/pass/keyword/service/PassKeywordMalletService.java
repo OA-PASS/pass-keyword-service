@@ -68,7 +68,7 @@ public class PassKeywordMalletService implements PassKeywordService {
         try {
             model.estimate();
         } catch (Exception e3) {
-            return null; // return null for inability estimate keywords
+            throw new IOException(); // return IOException for inability to estimate/run model
         }
 
         // The data alphabet maps word IDs to strings
@@ -79,8 +79,8 @@ public class PassKeywordMalletService implements PassKeywordService {
         double[] topicDistribution;
         try {
             topicDistribution = model.getTopicProbabilities(0);
-        } catch (Exception e5) {
-            return null; // return null if topicDistribution cannot be retrieved (no topics)
+        } catch (Exception e4) {
+            throw new IOException(); // return IOException if topicDistribution cannot be retrieved (no topics)
         }
         // Get an array of sorted sets of word ID/count pairs
         ArrayList<TreeSet<IDSorter>> topicSortedWords = model.getSortedWords();
