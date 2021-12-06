@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.dataconservancy.pass</groupId>
+    <artifactId>pass-keyword-service</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <packaging>war</packaging>
+
+    <!--
+    <licenses/>
+    -->
+
+    <developers>
+        <developer>
+            <name>Jihoon Kim</name>
+            <email>jkim620@jhu.edu</email>
+            <organization>Johns Hopkins University, Sheridan Libraries, Digital Research and Curation Center
+            </organization>
+            <organizationUrl>https://www.library.jhu.edu/library-departments/digital-research-curation-center/
+            </organizationUrl>
+        </developer>
+    </developers>
+
+    <properties>
+        <!-- general properties -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- build properties -->
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
+        <!-- plugin versions -->
+        <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
+        <fabric8.docker.maven.plugin.version>0.30.0</fabric8.docker.maven.plugin.version>
+        <maven.compiler.plugin.version>3.8.0</maven.compiler.plugin.version>
+        <maven.failsafe.plugin.version>2.22.0</maven.failsafe.plugin.version>
+        <maven.javadoc.plugin.version>3.0.1</maven.javadoc.plugin.version>
+        <maven.jar.plugin.version>3.1.1</maven.jar.plugin.version>
+        <maven.release.plugin.version>2.5.3</maven.release.plugin.version>
+        <maven.surefire.plugin.version>2.22.0</maven.surefire.plugin.version>
+        <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+
+        <!-- dependency versions -->
+        <javax.json.version>1.1.4</javax.json.version>
+        <javax.json.api.version>1.1.4</javax.json.api.version>
+        <javax.servlet.version>4.0.1</javax.servlet.version>
+        <cc.mallet.version>2.0.8</cc.mallet.version>
+        <org.apache.pdfbox.version>2.0.3</org.apache.pdfbox.version>
+        <org.junit.jupiter.version>5.8.2</org.junit.jupiter.version>
+        <slf4j.version>1.7.25</slf4j.version>
+        <logback-classic.version>1.2.3</logback-classic.version>
+        <mockito.version>2.27.0</mockito.version>
+    </properties>
+
+    <build>
+        <finalName>pass-keyword-service</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.22.0</version>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.json</artifactId>
+            <version>${javax.json.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.json</groupId>
+            <artifactId>javax.json-api</artifactId>
+            <version>${javax.json.api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${javax.servlet.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/cc.mallet/mallet -->
+        <dependency>
+            <groupId>cc.mallet</groupId>
+            <artifactId>mallet</artifactId>
+            <version>${cc.mallet.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox-tools</artifactId>
+            <version>${org.apache.pdfbox.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${org.junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${org.junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback-classic.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>
