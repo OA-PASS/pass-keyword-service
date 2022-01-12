@@ -1,0 +1,564 @@
+LETTERS
+Social evaluation by preverbal infants
+J. Kiley Hamlin1, Karen Wynn1 & Paul Bloom1
+The capacity to evaluate other people is essential for navigating the
+social world. Humans must be able to assess the actions and inten-
+tions of the people around them, and make accurate decisions
+about who is friend and who is foe, who is an appropriate social
+partner and who is not. Indeed, all social animals benefit from the
+capacity to identify individual conspecifics that may help them,
+and to distinguish these individuals from others that may harm
+them. Human adults evaluate people rapidly and automatically on
+the basis of both behaviour and physical features1–6, but the onto-
+genetic origins and development of this capacity are not well
+understood. Here we show that 6- and 10-month-old infants take
+into account an individual’s actions towards others in evaluating
+that individual as appealing or aversive: infants prefer an indi-
+vidual who helps another to one who hinders another, prefer a
+helping individual to a neutral individual, and prefer a neutral
+individual to a hindering individual. These findings constitute
+evidence that preverbal infants assess individuals on the basis of
+their behaviour towards others. This capacity may serve as the
+foundation for moral thought and action, and its early develop-
+mental emergence supports the view that social evaluation is a
+biological adaptation.
+Our experiments used two methodologies to assess 6- and 10-
+month-old infants’ intuitions about social interactions: a choice
+paradigm7–11 in which infants indicate preferences through their
+reaching behaviour, and a violation of expectation paradigm12–16 that
+assesses infants’ expectations via their looking times, capitalizing on
+the phenomenon that infants tend to look longer at unexpected or
+surprising events.
+In experiment 1, infants saw a character (the ‘climber’, made of
+wood and with large eyes glued onto it) initially at rest at the bottom
+of a hill. During a habituation phase, infants saw events in which the
+climber repeatedly attempted to climb the hill, and on the third
+attempt was either aided up by a helper who pushed it from behind,
+or was pushed downby a hinderer (Fig. 1a; stimulus clips and Supple-
+mentary Methods are available at http://www.yale.edu/infantlab/
+socialevaluation and in the Supplementary Information). Infants
+saw alternating helping and hindering trials with looking time mea-
+sured on each trial, until their looking time reached a pre-set criterion
+indicating they had sufficiently processed these events. Previous
+studies from our laboratory found that infants interpret similar,
+computer-animated events as instances of helping and hindering,
+and expect the climber subsequently to approach the helper and
+avoid the hinderer15,16. We asked here how infants themselves, as
+uninvolved and unaffected bystanders, evaluate helpers and hin-
+derers. Will witnessing one individual’s actions towards an unknown
+third party affect infants’ attitude towards that individual?
+In the test phase, our choice measure examined infants’ attitudes
+towards the helper and hinderer. Infants were encouraged to choose
+between the two (that is, reach for one). Infants robustly chose the
+helper (14 of 16 10-month-olds, binomial probability test, one-tailed
+P5 0.002; 12 of 12 6-month-olds, P5 0.0002), indicating that they
+held distinct impressions of the two characters on the basis of their
+actions towards the climber (see Fig 2).
+Our looking time measure replicated our previous studies asses-
+sing 9- and 12-month-olds’ expectations about the climber’s atti-
+tudes to the helper and hinderer15,16, and extended this question to
+younger infants. Infants saw a new display containing climber, helper
+and hinderer (Fig. 1b). The climber alternately approached the helper
+(unsurprising) and the hinderer (a surprising action). Replicating
+our previous results, 10-month-olds looked longer at the latter event
+(meanhinderer5 4.96 s, meanhelper5 3.82 s; paired t-test, t(15)5
+2.603, two-tailed P5 0.02), indicating surprise when the climber
+approached one who had previously hindered it. Six-month-olds,
+however, looked equally to both events (meanhinderer5 5.7 s, mean-
+helper5 6.7 s; t(11)5 0.80, P5 0.44), suggesting that they did not
+attribute to the climber distinct attitudes towards the two characters,
+despite themselves preferring helper to hinderer in our choice mea-
+sure. This suggests that the capacity for social evaluationmay develop
+before the ability to infer others’ evaluations.
+Our claim—that young infants evaluate others based on their
+social behaviour—entails that infants were responding to social,
+not superficial perceptual, aspects of our events. If infants of these
+ages prefer, for example, upward to downward motion, or pushing
+up to pushing down actions, then our subjects may have chosen the
+helper for these non-social reasons. To assess this, we conducted a
+second experiment in which infants saw events like those of experi-
+ment 1 except that the pushed object did not appear animate and
+goal-driven like our climber, but inanimate (Fig. 1c)—an entity to
+which social notions of helping and hindering do not apply.
+In experiment 2, new groups of infants saw two characters (the
+helper and hinderer from experiment 1), on alternating trials,
+smoothly push up or down the hill, respectively, an inanimate object
+(the climber of experiment 1 but with eyes removed, and undergoing
+no self-propelled motion). Although the two characters’ physical
+trajectories and respective effects on the pushed object were similar
+to those of the helper and hinderer in experiment 1, these events are
+not social interactions and cannot be viewed as instances of ‘helping’
+and ‘hindering’. Infants were then given a choice measure only.
+If perceptual preferences, not social evaluations, drove infants’
+choices in experiment 1, similar preferences should be obtained here:
+infants should robustly prefer the pusher-up to the pusher-down
+character. However, neither age group did so. Six of twelve 10-
+month-olds chose the pusher-up, binomial probability test, one-
+tailed P5 0.613; four of twelve 6-month-olds did so, P5 0.927.
+These responses differed significantly from those in experiment 1
+(10-month-olds, P5 0.04, Fisher’s exact test; 6-month-olds,
+P5 0.001), in which infants overwhelmingly chose the pusher-up
+(helper) when this action was embedded in a social context, indi-
+cating that infants’ preferences in experiment 1 were based on social,
+not perceptual, differences between helping and hindering events.
+Infants’ choice patterns indicate three possibilities: infants may
+positively evaluate an individual seen helping another (thus find
+the helper appealing); they may negatively evaluate an individual
+1Yale University, Department of Psychology, New Haven, Connecticut 06520-8205, USA.
+Vol 450 |22 November 2007 |doi:10.1038/nature06288
+557
+Nature  ©2007 Publishing Group
+seen hindering another (thus find the hinderer aversive); or both
+positive and negative evaluation processes may be operative. We
+accordingly conducted a third experiment in which new groups of
+6- and 10-month-old infants chose between a neutral character and
+a valenced character—either a helper (for infants in the helping/
+neutral condition) or a hinderer (the hindering/neutral condition).
+In experiment 3 habituation trials, each infant saw either a helper
+or a hinderer acting on a climber as in experiment 1, and a neutral
+character which moved uphill or downhill in the same manner as the
+valenced character but did not interact with the climber (Fig. 1d).
+Infants in both conditions were then given a choice measure to assess
+their own preference for the neutral versus valenced character, and a
+looking time measure to assess their expectations of the climber’s
+preference for the neutral versus valenced character.
+In the choicemeasure, infants of both ages responded differently to
+the neutral character when it was paired with the helper than when it
+was paired with the hinderer (Fisher’s exact test, two-tailed P5 0.01
+for each age group). Infants in the helping/neutral condition system-
+atically chose the helper (seven of eight 10-month-olds, binomial
+probability test, one-tailed P5 0.035; and seven of eight 6-month-
+olds, P5 0.035), whereas infants in the hindering/neutral group
+chose the neutral character (seven of eight 10-month-olds, P5
+0.035; and seven of eight 6-month-olds, P5 0.035). That is, infants
+were both drawn towards helpers and independently inclined to
+avoid hinderers, revealing both positive and negative evaluations.
+Infants’ choices were not based on general perceptual preferences:
+within each condition, the neutral and valenced characters enacted
+identical motion patterns; a preference for solitary action over
+interaction (or vice versa) would have generated across-the-board
+choice (or avoidance) of the neutral character in both conditions, not
+choice in one and avoidance in the other, as was observed. Infants’
+preference for the helper and aversion to the hinderer, then, are best
+explained as specifically social evaluations: a liking for those who act
+cooperatively to facilitate the goals of others, and a dislike of those
+who impede another’s goals.
+In our looking time measure, infants of both ages failed to dis-
+criminate the test events (climber approaching the neutral versus
+the valenced character (helper or hinderer), two-tailed t-tests, all
+P-values .0.3). Together with the looking time results from experi-
+ment 1 this suggests that 10-month-olds, although having expecta-
+tions of how an individual will respond to two actors performing
+opposing actions, do not anticipate how an individual will respond to
+actors performing less-distinct actions.
+Previous research has established that infants in the first half-year of
+life exhibit preferences for social individuals based on static perceptual
+features (for example, facial attractiveness, race)17,18, and toddlers by
+18 months of age spontaneously engage in cooperative helping beha-
+viour19. The findings reported here constitute the first evidence that
+young infants’ social preferences are influenced by others’ behaviour
+towards unrelated third parties. The presence of social evaluation so
+early in infancy suggests that assessing individuals by the nature of
+their interactions with others is central to processing the social world,
+both evolutionarily and developmentally. The capacity for such eva-
+luations can be seen as a biological adaptation: cooperative behaviour
+such as group hunting, food sharing and warfare can be beneficial to
+individual members of a group, but can only successfully evolve if
+individuals can distinguish free riders from cooperators or ‘recipro-
+cators’, those willing to do their fair share20,21. Our findings suggest
+that preverbal infants may be sensitive to this distinction.
+The capacity to evaluate individuals by their social actions may also
+serve as a foundation for a developing system of moral cognition.
+Plainly, many aspects of a full-fledged moral system are beyond the
+a
+b
+c
+d
+Figure 1 | Social interaction events shown to
+infants. a, Helping and hindering habituation
+events of experiments 1 and 3. On each trial, the
+climber (red circle) attempts to climb the hill
+twice, each time falling back to the bottom of the
+hill. On the third attempt, the climber is either
+bumped up the hill by the helper (left panel) or
+bumped down the hill by the hinderer (right
+panel). Infants in experiment 1 saw these two
+events in alternating sequence; infants in
+experiment 3 saw either a helping or hindering
+event in alternation with the corresponding
+neutral event depicted in d. b, Looking time test
+events of experiments 1 and 3. The climbermoves
+from the top of the hill to sit with the character on
+the right (left panel) or the left (right panel).
+c, Pushing-up and pushing-down habituation
+events of experiment 2. An inanimate object (red
+circle) rests (left panel) at the bottom of the hill
+and is pushed up, or rests (right panel) at the top
+of the hill and is pushed down. Infants saw these
+two events in alternation. d, Neutral habituation
+events from helper/neutral (left panel) and
+hinderer/neutral (right panel) conditions of
+experiment 3. The neutral character, without
+interacting with the climber, traces a path
+identical to that of the helper (left panel) or
+hinderer (right panel). Each infant saw either the
+helping or hindering event depicted in a, in
+alternation with the corresponding neutral event.
+LETTERS NATURE |Vol 450 |22 November 2007
+558
+Nature  ©2007 Publishing Group
+grasp of the preverbal infant. Yet the ability to judge differentially those
+who perform positive and negative social acts may form an essential
+basis for any system thatwill eventually containmore abstract concepts
+of right and wrong. The social evaluations we have observed in our
+young subjects have (at least) one crucial component of genuinemoral
+judgements: they do not stem from infants’ own experiences with the
+actors involved. Our subjects had no previous history with our char-
+acters, nor did they themselves experience any consequences of these
+characters’ actions. Their evaluations were made on the basis of wit-
+nessed interactions between unknown individuals: the infant, as an
+unaffected, unrelated (and therefore unbiased) third party, is none-
+theless rendering a judgement about the value of a social act.
+Our findings indicate that humans engage in social evaluation far
+earlier in development than previously thought, and support the view
+that the capacity to evaluate individuals on the basis of their social
+interactions is universal and unlearned22–24. Determining the com-
+plexity of this understanding—for instance, do infants prefer to
+interact with agents who punish hinderers over those who reward
+them—will require further research.
+METHODS SUMMARY
+Subjects were healthy full-term infants recruited from the greater New Haven
+area and tested in K.W.’s Infant Cognition Laboratory at Yale University. Ten-
+month-olds ranged from 9 months 12 days to 10months 16 days; 6-month-olds
+from 5months 3 days to 6months 17 days.
+Habituation events occurred in a display (122 cm wide, 66 cm high) contain-
+ing a green incline with 43-cm elevation from base to top. Characters were blocks
+(9 cm 3 9 cm 3 1 cm) with large (2.5-cm diameter) ‘googly eyes’ (with the
+exception of the eyeless object in experiment 2). The looking time test display
+(122 cm 3 66 cm) contained a hill with 14-cm elevation from base to top.
+Infants sat in parents’ laps; parents were instructed not to interfere with
+infants. Parents of all infants in experiment 2 and 6-month-olds in experiment
+3 were additionally instructed to close their eyes during choice measure. Infants
+received habituation trials until (1) looking time on three consecutive trials (after
+the first three) decreased to half that on the first three trials or (2) 14 trials were
+presented. End-of-trial for habituation and looking time test trials occurred
+when (1) the infant looked away continuously for 2 s or (2) 60 s had elapsed.
+A coder blind to the identities of the characters monitored infants’ looking times
+and administered the choice measure. A second coder independently coded a
+random 25% of subjects of each age group in each experiment; coders achieved
+98% positive agreement on both measures.
+The following were counterbalanced across subjects in each experiment and
+age group: identities of helper/hinderer (experiment 1), pusher-up/pusher-
+down (experiment 2) and valenced/neutral characters (experiment 3); order of
+habituation events; order of choice and looking time measures (experiments 1
+and 3); positions (left/right) of characters in choice and in looking time trials;
+order of climber’s approach in looking time test trials to helper/hinderer (experi-
+ment 1) and valenced/neutral character (experiment 3).
+Full Methods and any associated references are available in the online version of
+the paper at www.nature.com/nature.
+Received 3 August; accepted 24 September 2007.
+1. Langlois, J. H. Physical Appearance, Stigma, and Social Behavior: The Ontario
+Symposium Vol. 3 (eds Herman, C. P., Zanna, M. P. & Higgins, E. T.) (Erlbaum,
+Hillsdale, New Jersey, 1986).
+2. Shepherd, J. Perceiving and Remembering Faces (eds Davies, G., Ellis, H. &
+Shepherd, J.) (Academic Press, San Diego, California, 1981).
+3. Winter, L. & Uleman, J. When are social judgments made? Evidence for the
+spontaneousness of trait inferences. J. Pers. Soc. Psychol. 47, 237–252 (1984).
+4. Ambady, N. & Rosenthal, R. Thin slices of expressive behavior as predictors of
+interpersonal consequences: A meta-analysis. Psychol. Bull. 111, 256–274 (1992).
+5. Cunningham,W. A. et al. Separable neural components in the processing of black
+and white faces. Psychol. Sci. 15, 806–813 (2004).
+6. Todorov, A., Mandisodza, A., Goren, A. & Hall, C. Inferences of competence from
+faces predict election outcomes. Science 308, 1623–1626 (2005).
+7. Piaget, J. The Construction of Reality in the Child (Routledge, New York, 1954).
+8. Repacholi, B.M. &Gopnik, A. Early reasoning about desires: Evidence from 14–18-
+month olds. Dev. Psychol. 33, 12–21 (1997).
+9. Feigenson, L., Carey, S. & Spelke, E. S. Infants’ discrimination of number vs
+continuous extent. Cognit. Psychol. 44, 33–66 (2002).
+10. Hamlin, J. K., Hallinan, E. V. & Woodward, A. L. Do as I do: 7-month-old infants
+selectively reproduce others’ goals. Dev. Sci.. (in the press).
+11. Cheries, E., Mitroff, S. R., Wynn, K. & Scholl, B. J. Cohesion as a principle of object
+persistence in infancy. Dev. Sci.. (in the press).
+12. Woodward, A. L. Infants selectively encode the goal object of an actor’s reach.
+Cognition 69, 1–34 (1998).
+13. Premack, D. & Premack, A. J. Infants attribute value6 to the goal-directed actions
+of self-propelled objects. J. Cogn. Neurosci. 9, 848–856 (1997).
+14. Gergely, G., Nadasdy, Z., Csibra, G. & Biro, S. Taking the intentional stance at 12
+months of age. Cognition 56, 165–193 (1995).
+15. Kuhlmeier, V., Wynn, K. & Bloom, P. Attribution of dispositional states by 12-
+month-olds. Psychol. Sci. 14, 402–408 (2003).
+16. Kuhlmeier, V., Wynn, K. & Bloom, P. Reasoning about present dispositions based
+on past interactions (International Conference on Infant Studies, Chicago, Illinois,
+5 May 2004).
+17. Kelley, D. et al. 3-month-olds, but not newborns, prefer own-race faces.Dev. Sci.8,
+F31–F36 (2005).
+18. Slater, A. et al. Newborn infants prefer attractive faces. Infant Behav. Dev. 21,
+345–354 (1998).
+19. Warneken, F. & Tomasello, M. Altruistic helping in human infants and young
+chimpanzees. Science 311, 1301–1303 (2006).
+20. Trivers, R. L. The evolution of reciprocal altruism. Q. Rev. Biol. 46, 35–57 (1971).
+21. Axelrod, R. The Evolution of Cooperation (Basic Books, New York, 1984).
+22. Haidt, J. & Joseph, C. Intuitive ethics: How innately prepared intuitions generate
+culturally variable virtues. Daedalus 133, 55–66 (2004).
+23. Pinker, S. The Blank Slate (Norton, New York, 2002).
+24. Hauser, M. Moral Minds (Ecco, New York, 2006).
+Supplementary Information is linked to the online version of the paper at
+www.nature.com/nature.
+Acknowledgements We thank A. Norman, J. Stitelman, E. Madva, K. McCrink,
+G. Newman and E. Cheries for their assistance and input. This work was supported
+in part by a National Science Foundation grant to K.W.
+Author Information Reprints and permissions information is available at
+www.nature.com/reprints. Correspondence and requests for materials should be
+addressed to J.K.H. (kiley.hamlin@yale.edu) and to K.W. (karen.wynn@yale.edu).
+100
+75
+50
+NS
+NS
+10-month-olds
+Experiment 1 Experiment 2 Experiment 3
+P
+er
+ce
+nt
+ag
+e 
+of
+ in
+fa
+nt
+s 
+ch
+oo
+si
+ng
+ e
+ac
+h 
+in
+d
+iv
+id
+ua
+l
+6-month-olds
+Helper Hinderer Non-valenced (inanimate 
+and neutral conditions)
+****
+** * *
+** * *
+****
+25
+0
+100
+75
+50
+25
+0
+Pu
+sh
+ed
+ c
+lim
+be
+r
+up
+hi
+ll
+Pu
+sh
+ed
+ c
+lim
+be
+r
+do
+w
+nh
+ill
+Pu
+sh
+ed
+ b
+al
+l
+up
+hi
+ll
+Pu
+sh
+ed
+ b
+al
+l
+do
+w
+nh
+ill
+Pu
+sh
+ed
+ c
+lim
+be
+r
+up
+hi
+ll
+N
+eu
+tra
+l m
+ov
+ed
+up
+hi
+ll
+Pu
+sh
+ed
+ c
+lim
+be
+r
+do
+w
+nh
+ill
+N
+eu
+tra
+l m
+ov
+ed
+do
+w
+nh
+ill
+Figure 2 | Choice results. Percentage of infants choosing each character
+across experiments 1, 2 and 3. NS, not significant. Asterisk, one-tailed
+P, 0.05; double asterisk, P, 0.05.
+NATURE |Vol 450 |22 November 2007 LETTERS
+559
+Nature  ©2007 Publishing Group
+METHODS
+Experiment 1: helper versus hinderer. Subjects were 16 10-month-olds (8 girls;
+mean age 9months, 26 days; range 9months, 14 days to 10months, 16 days) and
+12 6-month-olds (5 girls; mean age 6months, 5 days; range 5months, 18 days to
+6months, 17 days). Four additional infants (two 10-month-olds) were excluded
+owing to parental interference (two) or procedure error (two). Subjects in all
+experiments were healthy full-term infants.
+Infants sat in parents’ laps before a table with a curtain at the far end (165 cm
+from the infant), which could be lowered to occlude a display stage (122 cmwide,
+66 cm high) with a white background and a green ‘hill’ or incline protruding
+10 cm, which rose from lower right to upper left corner of the display (43 cm
+from lowest to highest point). It had a small ‘plateau’ one-third of theway up and
+a second at the top. Characters were wooden blocks 9 cm 3 9 cm with ‘googly
+eyes’. For 10-month-olds, the climber was a yellow triangle; helper and hinderer
+were a red square and a blue circle (counterbalanced). For 6-month-olds, the
+climber was a blue circle; helper and hinderer were a yellow triangle and a red
+square.
+The curtain was first raised and lowered three times with the climber at the
+base of the incline. Habituation trials then began. The climber climbed to the
+lower plateau, ‘danced’ (jiggled up and down) for 2 s, then attempted twice to
+reach the upper plateau, each time falling back to the lower plateau. On a third
+attempt, the climber was either pushed to the top by the helper, or pushed to the
+bottomby the hinderer. In helping events, the helper entered the display from the
+lower right, moved up the incline and bumped the climber twice, each time
+pushing him farther up until the climber reached the upper plateau. The climber
+subsequently ‘danced’ while the helper went downhill and exited; the climber
+then became stationary. In hindering events, the hinderer entered from the upper
+left, moved down the incline and bumped the climber twice, each time pushing
+him farther down. The climber then tumbled end-over-end to hill bottom and
+remained stationary, while the hinderer moved back up the hill and exited. Total
+event duration was 11 s.
+A coder blind to the identities of helper and hinderer recorded infants’ looking
+to the stationary climber. Infants’ looking was measured from helper/hinderer’s
+exit until end-of-trial, reached when (1) the infant looked away continuously for
+2 s, or (2) 60 s elapsed. The curtain dropped to occlude the display between trials.
+Infants saw helping and hindering trials in alternating sequence until (1) the
+summed looking times on three consecutive trials after the first three dropped to
+less than half the summed looking on the first 3 trials, or (2) 14 trials had elapsed.
+Both age groups habituated in an average of 9 trials.
+Infants were then given choice and looking time test measures. Choice: the
+coder presented the infant with the helper and the hinderer 25 cm apart on a
+white board, and asked ‘‘would you like to pick a toy?’’ Infants’ choice was
+defined as the character touched first, as judged by the (blind) coder, with the
+constraint that the infant had to be looking at the toy during or immediately
+preceding the touch (to exclude possibly accidental touches during board
+exploration, and so on). All infants in experiment 1 made identifiable choices.
+Looking time: the test display contained a shallow symmetrical test hill (122 cm
+3 66 cm, rising 14 cm from lowest to highest point). The climber sat at the top
+centre of the hill, with the helper and hinderer resting at the bottom left and right
+of the hill. The climbermoved back and forth (10 cm each way) along the crest of
+the hill twice, then danced (2 s) at the top centre. Test trials then commenced.
+The climber partially approached, retreated, then fully approached to rest next to
+the helper or hinderer (on alternating trials); infants’ looks to the now-stationary
+characters were then recorded.
+A second coder independently coded a random 25% of subjects, achieving
+99% agreementwith the first coder on looking time and 100%on choice for both
+age groups.
+The following were counterbalanced across subjects in each age group: (1)
+colour/shape of helper and hinderer; (2) order of helping and hindering habitu-
+ation events; (3) order of choice and looking time measures; (4) positions of
+helper and hinderer in choice and in looking time trials; and (5) order of
+‘approach-helper’ and ‘approach-hinderer’ looking time trials.
+Experiment 2: pushing inanimate object uphill versus downhill. Subjects were
+12 10-month-olds (eight girls; mean age 10months, 2 days; range 9months,
+14 days to 10months, 22 days) and 12 6-month-olds (6 girls; mean age 6months,
+1 day; range 5months, 15 days to 6months, 17 days). Two additional 6-month-
+olds were excluded from the final sample owing to procedure error (1) and
+fussiness (1).
+Stimuli were as in experiment 1 except that to create the ‘object’ stimulus, the
+eyes of the climber stimulus from experiment 1 were removed so that it appeared
+inanimate. Helper and hinderer stimuli from experiment 1 were used as pusher-
+up and pusher-down stimulus characters. Events were as in experiment 1 except
+that the object, unlike the climber in experiment 1, underwent no self-generated
+motion, and the pusher-up and pusher-down smoothly pushed the object all the
+way up (down) the incline from its starting location at bottom (top). Event
+duration was 11 s. In addition to being instructed not to interfere with their
+infants, parents were instructed to keep their eyes closed during the choice
+measure.
+A second coder independently coded a random 25% of subjects of each age
+group; the two coders reached 100% agreement on choice, for both the 6- and
+10-month-olds.
+The following were counterbalanced across infants within each age group: (1)
+colour/shape of pusher-up and pusher-down; (2) order of habituation events;
+and (3) position of pusher-up and pusher-down in choice.
+Experiment 3: valenced (helper/hinderer) versus neutral character. Subjects
+were 16 10-month-olds (eight girls; mean age 9months, 27 days; range 9months,
+12 days to 10months, 14 days) and 16 6-month-olds (eight girls; mean age
+5months, 28 days; range 5months, 3 days to 6months, 16 days). Eight additional
+infants (one 10-month-old) were excluded from the final sample owing to a
+procedure error (three), fussiness (two) and failure to make an identifiable
+choice (three). Half the subjects in each age group saw helping and neutral
+events, half saw hindering and neutral events.
+For 10-month-olds, the climber was a blue circle; valenced and neutral char-
+acters were a red square and a yellow triangle. For 6-month-olds, the climber was
+a red circle; valenced and neutral characters were a yellow triangle and a blue
+square.
+During habituation, half the infants (randomly chosen) in each age group saw
+helping and neutral events on alternate trials, half saw hindering and neutral
+events. Helping and hindering events were as in experiment 1. During neutral
+trials in the helping/neutral condition, the climber ‘danced’ for 2 s at the bottom
+of the incline (lower right), then sat motionless. The neutral character then
+entered from the lower right, bypassed the climber, and traced the same path
+as the helper, performing the samemotions but not interacting with the climber.
+During neutral trials in the hindering/neutral condition, the climber ‘danced’ for
+2 s at the lower right then satmotionless. The neutral character then entered from
+the upper left and traced the same path as the hinderer, performing the same
+motions without interacting with the climber.
+Infants then received choice and looking time measures. In the choice mea-
+sure, infants were presentedwith the valenced (helping or hindering) and neutral
+characters. In the looking time measure, the climber approached valenced and
+neutral characters on alternating trials.
+A second coder independently coded a random 25% of subjects of each age
+group; the two coders reached 98% agreement on looking time and 100% agree-
+ment on choice, for both the 6- and 10-month-olds.
+The following were counterbalanced across infants within each age group and
+condition: (1) colour/shape of valenced and neutral characters; (2) order of
+habituation events; (3) order of choice and looking time measures; (4) position
+of neutral character in choice and in looking time trials; and (5) order of
+‘approach-valenced’ and ‘approach-neutral’ looking time trials.
+doi:10.1038/nature06288
+Nature  ©2007 Publishing Group
