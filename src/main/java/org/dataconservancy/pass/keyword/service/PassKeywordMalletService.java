@@ -12,24 +12,34 @@ import java.util.TreeSet;
 import java.util.Iterator;
 import java.util.regex.Pattern;
 
-import cc.mallet.util.*;
-import cc.mallet.types.*;
-import cc.mallet.pipe.*;
-import cc.mallet.pipe.iterator.*;
-import cc.mallet.topics.*;
+import cc.mallet.types.InstanceList;
+import cc.mallet.types.Alphabet;
+import cc.mallet.types.IDSorter;
+import cc.mallet.pipe.Pipe;
+import cc.mallet.pipe.TokenSequenceRemoveStopwords;
+import cc.mallet.pipe.Input2CharSequence;
+import cc.mallet.pipe.CharSequenceLowercase;
+import cc.mallet.pipe.CharSequence2TokenSequence;
+import cc.mallet.pipe.TokenSequence2FeatureSequence;
+import cc.mallet.pipe.SerialPipes;
+import cc.mallet.pipe.iterator.CsvIterator;
+import cc.mallet.topics.ParallelTopicModel;
 
 /** Represents PASS-Keyword service which uses MALLET's Parallel Topic Model to extract keywords from a given manuscript
  * @author Jihoon Kim
  */
 public class PassKeywordMalletService implements PassKeywordService {
 
-    /** Create a ParallelTopicModel to evaulate the keywords of given manuscript
+    /**
+     * Creates a ParallelTopicModel from MALLET to evaulate the keywords of given manuscript.
      *
-     * @param parsedText parsed text of manuscript
-     * @param parsedText parsed text of manuscript
-     * @return An ArrayList of the topTopics (top 5 words in each topic)
-     * @throws IOException
-     * @throws Exception
+     * Uses a Pipe object to filter and clean manuscript which is stored in an InstanceList, which is then fed
+     * to the ParallelTopicModel. The model is configured then ran to retrieve the top keywords of the manuscript for
+     * each topic.
+     *
+     * @param   parsedText   parsed text of manuscript
+     * @return               an ArrayList of the topTopics (top 5 words in each topic)
+     * @throws  IOException  if input error exists for creating Pipe or InputstreamReader and inability to run or retrieve keywords from model
      */
     public ArrayList<String> evaluateKeywords(String parsedText) throws IOException {
         // Create object used to pipe through and clean manuscript (UTF-8 encoding, Lowercase, Tokenize, Remove Stopwords)
@@ -99,9 +109,12 @@ public class PassKeywordMalletService implements PassKeywordService {
         return topTopics;
     }
 
-    /** Builds pipe that manipulates manuscript for extraction
+    /**
+     * Builds pipe that manipulates manuscript for extraction.
+     * Pipe manipulates the manuscript to the following: UTF-8 encoding, lowercase form, tokenized, without stopwords.
      *
-     * @return A Pipe object that converts a manuscript to UTF-8 encoding and transforms manuscript to lowercase, tokens, and without stopwords
+     * @return               Pipe object that converts a manuscript to UTF-8 encoding and transforms manuscript to lowercase, tokens, and without stopwords
+     * @throws  IOException  if getStopList throws IOException for input error when retrieving stoplist from en.txt
      */
     private Pipe buildPipe() throws IOException {
         String[] stopList = getStopList();
@@ -118,10 +131,11 @@ public class PassKeywordMalletService implements PassKeywordService {
         return new SerialPipes(pipeList);
     }
 
-    /** Get array of stopwords from en.txt (text of stopwords in English)
+    /**
+     * Get array of stopwords from src/main/resources/en.txt (text of stopwords in English).
      *
-     * @return stopList String array of stopwords
-     * @throws IOException
+     * @return  stopList     string array of stopwords
+     * @throws  IOException  if en.txt cannot be read or converted as an array of Strings
      */
     private String[] getStopList() throws IOException {
         InputStream inputStream = this.getClass().getResourceAsStream("/en.txt");
