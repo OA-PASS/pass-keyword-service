@@ -104,7 +104,7 @@ public class PassKeywordServletTest {
   }
 
   @Test
-  @DisplayName("doGet() has correct response given valid request")
+  @DisplayName("doGet() has correct response given invalid URL request (invalid config)")
   public void testDoGetResponse() {
     try{
       ServletOutputStream servletOut = Mockito.mock(ServletOutputStream.class);
@@ -116,7 +116,7 @@ public class PassKeywordServletTest {
 
       Mockito.verify(response).setContentType("application/json");
       Mockito.verify(response).setCharacterEncoding("utf-8");
-      Mockito.verify(response).setStatus(200);
+      Mockito.verify(response).setStatus(400);
       return;
     } catch(IOException e) {
       fail("IOException should not be caught");

@@ -195,7 +195,7 @@ public class PassKeywordServlet extends HttpServlet {
       LOG.debug("MalformedURLException caught");
       return false;
     } catch (Exception e) {
-      return false; // refers to line 164, IndexOutOfBounds exception
+      return false; // refers to line 177, IndexOutOfBounds exception
     }
     return true;
   }
