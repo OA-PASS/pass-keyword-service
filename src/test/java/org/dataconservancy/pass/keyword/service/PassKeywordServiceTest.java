@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.io.IOException;
 import java.lang.Exception;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class PassKeywordServiceTest {
 
