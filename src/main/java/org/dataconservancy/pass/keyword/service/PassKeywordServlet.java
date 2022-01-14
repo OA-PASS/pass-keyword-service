@@ -36,6 +36,12 @@ public class PassKeywordServlet extends HttpServlet {
   String contextPath;
   PassKeywordService passKeywordService;
 
+  /**
+   * Initializes PassKeywordServlet by loading in configurations and initializing the PassKeywordService.
+   *
+   * @param  config            a Servlet Config object containing the servlet's configuration and initialization parameters
+   * @throws ServletException  if an exception has occurred that interferes with the servlet's normal operation
+   */
   @Override
   public void init(ServletConfig config) throws ServletException {
     super.init(config);
@@ -48,6 +54,16 @@ public class PassKeywordServlet extends HttpServlet {
     passKeywordService = new PassKeywordMalletService();
   }
 
+  /**
+   * Called by serviced to allow PassKeywordService to handle a GET request.
+   * Upon receiving the GET request, the GET request is verified to be a valid URL according to the servlet configuration,
+   * then converted from a URL to InputStream to a String of parsed text for keyword evaluation with the PassKeywordService.
+   * The outputted keywords are then stored as a JSON array to the response output.
+   *
+   * @param request       an HTTPServletRequest object that contains the URL of the manuscript sent from the client
+   * @param response      an HTTPServletResponse object that contains the JSONObject of keywords extracted from manuscript
+   * @throws IOException  if an input or output error is detected when the servlet handles the GET request
+   */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("application/json");
@@ -143,10 +159,11 @@ public class PassKeywordServlet extends HttpServlet {
     return;
   }
 
-  /** Verifies URL with configuration
+  /**
+   * Verifies URL with web.xml configuration
    *
-   * @param manuscript  manuscript of GET request
-   * @return            true = valid manuscript, false = invalid manuscript (empty, unsupported file)
+   * @param  manuscript  manuscript from GET request
+   * @return             true = valid manuscript, false = invalid manuscript (empty, unsupported file)
    */
   protected boolean verify(String urlString) {
     if (urlString == null) {
@@ -178,16 +195,17 @@ public class PassKeywordServlet extends HttpServlet {
       LOG.debug("MalformedURLException caught");
       return false;
     } catch (Exception e) {
-      return false; // refers to line 164, IndexOutOfBounds exception
+      return false; // refers to line 177, IndexOutOfBounds exception
     }
     return true;
   }
 
-  /** Private function that converts PDF manuscript to String of parsed manuscript
+  /**
+   * Private function that converts PDF manuscript to String of parsed manuscript
    *
-   * @param input InputStream to take PDF input from
-   * @return parsedText String of text parsed from input
-   * @throws IOException
+   * @param   input        an InputStream object to take PDF input from
+   * @return  parsedText   String of text parsed from input
+   * @throws  IOException  if an input error is detected while generating text from PDF
    */
   protected static String generateTextFromPDF(InputStream input) throws IOException {
     try {

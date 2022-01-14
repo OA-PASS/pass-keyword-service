@@ -9,9 +9,13 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import java.io.*;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.net.MalformedURLException;
 
@@ -100,7 +104,7 @@ public class PassKeywordServletTest {
   }
 
   @Test
-  @DisplayName("doGet() has correct response given valid request")
+  @DisplayName("doGet() has correct response given invalid URL request (invalid config)")
   public void testDoGetResponse() {
     try{
       ServletOutputStream servletOut = Mockito.mock(ServletOutputStream.class);
@@ -112,7 +116,7 @@ public class PassKeywordServletTest {
 
       Mockito.verify(response).setContentType("application/json");
       Mockito.verify(response).setCharacterEncoding("utf-8");
-      Mockito.verify(response).setStatus(200);
+      Mockito.verify(response).setStatus(400);
       return;
     } catch(IOException e) {
       fail("IOException should not be caught");
