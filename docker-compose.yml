@@ -1,0 +1,7 @@
+version: "3"
+
+services:
+  keyword:
+    build: .
+    ports:
+      - "5001:8080"
