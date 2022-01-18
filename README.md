@@ -41,8 +41,14 @@ In each error case, a JSON object is outputted with the following format:
   }
 }
 ```
+## Running the Service
+To run the service,
+  1. Run `mvn install` to install the pass-keyword-service.war inside the `target` directory.
+  2. Run `docker-compose up` to run the service with the desired environment variables configurable in `docker-compose.yml`
 
-## Configuration
+
+
+### Configuration
 The service will not require any environment variables to be specified. All environment variables not specified will fulfill their default values. 
 
 | Environment Variable  		| Description  		| Default Value |
