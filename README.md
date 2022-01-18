@@ -43,7 +43,10 @@ In each error case, a JSON object is outputted with the following format:
 ```
 
 ## Configuration
-The service will not require any required environment variables, unless specified. All environment variables not specified will fulfill their default values. 
+The service will not require any environment variables to be specified. All environment variables not specified will fulfill their default values. 
 
 | Environment Variable  		| Description  		| Default Value |
 | ------------- | ------------- | ------------- |
+HOSTURL | the host URL of the manuscript URL passed in | pass.local
+CONTEXTPATH | the context path of the manuscript URL | /fcrepo/rest/submissions
+MAXKEYWORDS | the maximum amount of keywords outputted by the service | 10
