@@ -5,3 +5,7 @@ services:
     build: .
     ports:
       - "5001:8080"
+    environment:
+      HOSTURL: pass.local
+      CONTEXTPATH: /fcrepo/rest/submissions
+      MAXKEYWORDS: 10
