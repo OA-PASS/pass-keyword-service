@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import java.io.IOException;
 import java.lang.Exception;
+import java.lang.System;
 import java.net.MalformedURLException;
 
 import org.apache.pdfbox.cos.COSDocument;
@@ -34,6 +35,7 @@ public class PassKeywordServlet extends HttpServlet {
 
   String hostUrl;
   String contextPath;
+  String maxKeywords;
   PassKeywordService passKeywordService;
 
   /**
@@ -45,12 +47,20 @@ public class PassKeywordServlet extends HttpServlet {
   @Override
   public void init(ServletConfig config) throws ServletException {
     super.init(config);
-    if ((hostUrl = getInitParameter("hostUrl")) == null) {
+
+    if ((hostUrl = System.getenv("HOSTURL")) == null) {
+      LOG.info("Environment variable: HOSTURL not found");
       hostUrl = "pass.local";
     }
-    if ((contextPath = getInitParameter("contextPath")) == null) {
+    if ((contextPath = System.getenv("CONTEXTPATH")) == null) {
+      LOG.info("Environment variable: CONTEXTPATH not found");
       contextPath = "/fcrepo/rest/submissions";
     }
+    if ((maxKeywords = System.getenv("MAXKEYWORDS")) == null) {
+      LOG.info("Environment variable: MAXKEYWORDS not found");
+      maxKeywords = "25";
+    }
+
     passKeywordService = new PassKeywordMalletService();
   }
 
@@ -145,7 +155,7 @@ public class PassKeywordServlet extends HttpServlet {
 
     /* Step 4: Output keywords to JSON object */
     JsonArrayBuilder jsonKeywordArrayBuilder = Json.createArrayBuilder();
-    for(int i = 0; i < keywords.size(); i++) {
+    for(int i = 0; i < keywords.size() && i < Integer.parseInt(maxKeywords); i++) {
       jsonKeywordArrayBuilder.add(i, keywords.get(i));
     }
     JsonArray jsonKeywordArray = jsonKeywordArrayBuilder.build();
