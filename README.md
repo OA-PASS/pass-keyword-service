@@ -41,9 +41,18 @@ In each error case, a JSON object is outputted with the following format:
   }
 }
 ```
+## Running the Service
+To run the service,
+  1. Run `mvn install` to install the pass-keyword-service.war inside the `target` directory.
+  2. Run `docker-compose up` to run the service with the desired environment variables configurable in `docker-compose.yml`
 
-## Configuration
-The service will not require any required environment variables, unless specified. All environment variables not specified will fulfill their default values. 
+
+
+### Configuration
+The service will not require any environment variables to be specified. All environment variables not specified will fulfill their default values. 
 
 | Environment Variable  		| Description  		| Default Value |
 | ------------- | ------------- | ------------- |
+HOSTURL | the host URL of the manuscript URL passed in | pass.local
+CONTEXTPATH | the context path of the manuscript URL | /fcrepo/rest/submissions
+MAXKEYWORDS | the maximum amount of keywords outputted by the service | 10
