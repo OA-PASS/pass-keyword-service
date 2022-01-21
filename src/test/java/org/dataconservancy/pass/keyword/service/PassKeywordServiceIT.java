@@ -27,25 +27,28 @@ public class PassKeywordServiceIT {
 
   private static final String keywordServiceUrl = "http://localhost:8080/pass-keyword-service/keywords";
 
-  OkHttpClient client = new OkHttpClient();
-
+  OkHttpClient client = new OkHttpClient.Builder()
+      .retryOnConnectionFailure(true)
+      .build();
   /**
    * Expect 400 error from an invalid URL (Hello World)
    * @throws IOException if input error in request
    */
   @Test
   public void invalidUrlTest() throws IOException {
-    HttpUrl.Builder urlBuilder = HttpUrl.parse(keywordServiceUrl).newBuilder().addQueryParameter("file", "Hello World");
+    HttpUrl.Builder urlBuilder = HttpUrl.parse(keywordServiceUrl).newBuilder().addQueryParameter("file", "HelloWorld");
     String url = urlBuilder.build().toString();
 
     Request okhttpRequest = new Request.Builder()
         .url(url)
+        .addHeader("Connection","close")
         .build();
     Call call = client.newCall(okhttpRequest);
 
     try (Response okHttpResponse = call.execute()) {
       assertEquals(400, okHttpResponse.code());
     }
+    return;
   }
 
   /**
@@ -59,12 +62,14 @@ public class PassKeywordServiceIT {
 
     Request okhttpRequest = new Request.Builder()
         .url(url)
+        .addHeader("Connection","close")
         .build();
     Call call = client.newCall(okhttpRequest);
 
     try (Response okHttpResponse = call.execute()) {
       assertEquals(400, okHttpResponse.code());
     }
+    return;
   }
 
   /**
@@ -78,12 +83,14 @@ public class PassKeywordServiceIT {
 
     Request okhttpRequest = new Request.Builder()
         .url(url)
+        .addHeader("Connection","close")
         .build();
     Call call = client.newCall(okhttpRequest);
 
     try (Response okHttpResponse = call.execute()) {
       assertEquals(400, okHttpResponse.code());
     }
+    return;
   }
 
   /**
@@ -97,12 +104,14 @@ public class PassKeywordServiceIT {
 
     Request okhttpRequest = new Request.Builder()
         .url(url)
+        .addHeader("Connection","close")
         .build();
     Call call = client.newCall(okhttpRequest);
 
     try (Response okHttpResponse = call.execute()) {
       assertEquals(415, okHttpResponse.code());
     }
+    return;
   }
 
   /**
@@ -116,11 +125,13 @@ public class PassKeywordServiceIT {
 
     Request okhttpRequest = new Request.Builder()
         .url(url)
+        .addHeader("Connection","close")
         .build();
     Call call = client.newCall(okhttpRequest);
 
     try (Response okHttpResponse = call.execute()) {
       assertEquals(200, okHttpResponse.code());
     }
+    return;
   }
 }

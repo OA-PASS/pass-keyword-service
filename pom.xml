@@ -37,7 +37,7 @@
         <!-- plugin versions -->
         <fabric8.docker.maven.plugin.version>0.30.0</fabric8.docker.maven.plugin.version>
         <maven.compiler.plugin.version>3.8.0</maven.compiler.plugin.version>
-        <maven.failsafe.plugin.version>2.22.0</maven.failsafe.plugin.version>
+        <maven.failsafe.plugin.version>2.20.1</maven.failsafe.plugin.version>
         <maven.surefire.plugin.version>2.22.0</maven.surefire.plugin.version>
 
         <!-- dependency versions -->
@@ -50,7 +50,7 @@
         <slf4j.version>1.7.25</slf4j.version>
         <logback-classic.version>1.2.3</logback-classic.version>
         <mockito.version>2.27.0</mockito.version>
-        <okhttp.version>3.14.1</okhttp.version>
+        <okhttp.version>4.9.3</okhttp.version>
 
         <!-- integration test properties -->
         <pass.keyword.service.port>8080</pass.keyword.service.port>
@@ -58,6 +58,11 @@
 
     <build>
         <finalName>pass-keyword-service</finalName>
+        <testResources>
+            <testResource>
+                <directory>src/test/java/org/dataconservancy/pass/keyword/service</directory>
+            </testResource>
+        </testResources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -75,7 +80,7 @@
                 <version>${fabric8.docker.maven.plugin.version}</version>
                 <executions>
                     <execution>
-                        <id>build-before-its</id>
+                        <id>docker-compose-up</id>
                         <phase>pre-integration-test</phase>
                         <goals>
                             <goal>build</goal>
@@ -106,7 +111,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>remove-it-database</id>
+                        <id>docker-compose-down</id>
                         <phase>post-integration-test</phase>
                         <goals>
                             <goal>stop</goal>
