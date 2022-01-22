@@ -41,12 +41,18 @@ In each error case, a JSON object is outputted with the following format:
   }
 }
 ```
-## Running the Service
+## Running and Testing the Service
+
+### Running the Service
 To run the service,
   1. Run `mvn install` to install the pass-keyword-service.war inside the `target` directory.
-  2. Run `docker-compose up` to run the service with the desired environment variables configurable in `docker-compose.yml`
+  2. Run `docker build -t {name of image} .` to build the docker image with your desired image name.
+  3. Run `docker run -p {port of choice}:8080 {name of image}` to deploy and run the docker image.
+      1. Optionally, environment variables can be overriden through the `-e` flag like so: `docker run -p {port of choice}:8080 -e MAXKEYWORDS=5 {name of image}` *note: `-e` must preceed each overridden environment variable*
 
-
+### Testing the Service
+To test the service,
+  1. Run `mvn install` or `mvn verify` to run the unit and integration tests.
 
 ### Configuration
 The service will not require any environment variables to be specified. All environment variables not specified will fulfill their default values. 
