@@ -19,7 +19,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.MalformedURLException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -29,12 +32,6 @@ public class PassKeywordServletTest {
 
   @Mock
   ServletConfig config;
-
-  @Mock
-  HttpServletRequest request;
-
-  @Mock
-  HttpServletResponse response;
 
   @BeforeEach
   public void setupPassKeywordServlet() throws ServletException {
@@ -101,25 +98,5 @@ public class PassKeywordServletTest {
     } catch(IOException e){
     }
     return;
-  }
-
-  @Test
-  @DisplayName("doGet() has correct response given invalid URL request (invalid config)")
-  public void testDoGetResponse() {
-    try{
-      ServletOutputStream servletOut = Mockito.mock(ServletOutputStream.class);
-      when(request.getParameter("file")).thenReturn("https://www.clickdimensions.com/links/TestPDFfile.pdf");
-      when(response.getOutputStream()).thenReturn(servletOut);
-      passKeywordServlet.doGet(request, response);
-
-      Mockito.verify(request).getParameter("file");
-
-      Mockito.verify(response).setContentType("application/json");
-      Mockito.verify(response).setCharacterEncoding("utf-8");
-      Mockito.verify(response).setStatus(400);
-      return;
-    } catch(IOException e) {
-      fail("IOException should not be caught");
-    }
   }
 }
