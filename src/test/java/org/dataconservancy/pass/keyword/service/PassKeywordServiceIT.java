@@ -5,7 +5,7 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -13,7 +13,7 @@ import javax.json.JsonReader;
 
 import java.io.IOException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class PassKeywordServiceIT {
 
@@ -78,7 +78,7 @@ public class PassKeywordServiceIT {
    */
   @Test
   public void invalidContextPathUrlTest() throws IOException {
-  HttpUrl.Builder urlBuilder = HttpUrl.parse(keywordServiceUrl).newBuilder().addQueryParameter("file", "https://pass.local/this/is/incorrect");
+  HttpUrl.Builder urlBuilder = HttpUrl.parse(keywordServiceUrl).newBuilder().addQueryParameter("file", "https://testing.com/this/is/a/test/pdf");
     String url = urlBuilder.build().toString();
 
     Request okhttpRequest = new Request.Builder()
@@ -89,27 +89,6 @@ public class PassKeywordServiceIT {
 
     try (Response okHttpResponse = call.execute()) {
       assertEquals(400, okHttpResponse.code());
-    }
-    return;
-  }
-
-  /**
-   * Expect 415 error from valid url but not valid PDF format
-   * @throws IOException if input error in request
-   */
-  @Test
-  public void invalidPdfUrlTest() throws IOException {
-    HttpUrl.Builder urlBuilder = HttpUrl.parse(keywordServiceUrl).newBuilder().addQueryParameter("file", "https://www.clickdimensions.com/links/TestPDFfile");
-    String url = urlBuilder.build().toString();
-
-    Request okhttpRequest = new Request.Builder()
-        .url(url)
-        .addHeader("Connection","close")
-        .build();
-    Call call = client.newCall(okhttpRequest);
-
-    try (Response okHttpResponse = call.execute()) {
-      assertEquals(415, okHttpResponse.code());
     }
     return;
   }

@@ -37,7 +37,7 @@
         <!-- plugin versions -->
         <fabric8.docker.maven.plugin.version>0.30.0</fabric8.docker.maven.plugin.version>
         <maven.compiler.plugin.version>3.8.0</maven.compiler.plugin.version>
-        <maven.failsafe.plugin.version>2.20.1</maven.failsafe.plugin.version>
+        <maven.failsafe.plugin.version>2.22.1</maven.failsafe.plugin.version>
         <maven.surefire.plugin.version>2.22.0</maven.surefire.plugin.version>
 
         <!-- dependency versions -->
@@ -58,11 +58,6 @@
 
     <build>
         <finalName>pass-keyword-service</finalName>
-        <testResources>
-            <testResource>
-                <directory>src/test/java/org/dataconservancy/pass/keyword/service</directory>
-            </testResource>
-        </testResources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -80,7 +75,7 @@
                 <version>${fabric8.docker.maven.plugin.version}</version>
                 <executions>
                     <execution>
-                        <id>docker-compose-up</id>
+                        <id>build-before-its</id>
                         <phase>pre-integration-test</phase>
                         <goals>
                             <goal>build</goal>
@@ -95,7 +90,7 @@
                                     <name>keyword-service-its</name>
                                     <build>
                                         <contextDir>${project.basedir}</contextDir>
-                                        <dockerFile>Dockerfile-ITs</dockerFile>
+                                        <dockerFile>Dockerfile</dockerFile>
                                     </build>
                                     <run>
                                         <skip>false</skip>
@@ -105,13 +100,18 @@
                                         <ports>
                                             <port>${pass.keyword.service.port}:8080</port>
                                         </ports>
+                                        <env>
+                                            <HOSTURL>www.clickdimensions.com</HOSTURL>
+                                            <CONTEXTPATH>/links/TestPDFfile.pdf</CONTEXTPATH>
+                                            <MAXKEYWORDS>3</MAXKEYWORDS>
+                                        </env>
                                     </run>
                                 </image>
                             </images>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>docker-compose-down</id>
+                        <id>stop-after-its</id>
                         <phase>post-integration-test</phase>
                         <goals>
                             <goal>stop</goal>
