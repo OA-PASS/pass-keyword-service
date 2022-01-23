@@ -105,6 +105,15 @@
                                             <CONTEXTPATH>/links/TestPDFfile.pdf</CONTEXTPATH>
                                             <MAXKEYWORDS>3</MAXKEYWORDS>
                                         </env>
+                                        <wait>
+                                            <!-- wait until 400 code response or 10 seconds to guarantee tomcat startup -->
+                                            <http>
+                                                <url>http://localhost:${pass.keyword.service.port}/pass-keyword-service/keywords?file=test</url>
+                                                <method>GET</method>
+                                                <status>400</status>
+                                            </http>
+                                            <time>10000</time>
+                                        </wait>
                                     </run>
                                 </image>
                             </images>
