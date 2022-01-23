@@ -7,14 +7,6 @@
     <servlet>
         <servlet-name>PASS Keyword Service Application</servlet-name>
         <servlet-class>org.dataconservancy.pass.keyword.service.PassKeywordServlet</servlet-class>
-        <init-param>
-            <param-name>hostUrl</param-name>
-            <param-value>pass.local</param-value>
-        </init-param>
-        <init-param>
-            <param-name>contextPath</param-name>
-            <param-value>/fcrepo/rest/submissions</param-value>
-        </init-param>
     </servlet>
 
     <servlet-mapping>
