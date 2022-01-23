@@ -1,7 +1,9 @@
 FROM tomcat:9.0
 
-ADD  target/pass-keyword-service.war /usr/local/tomcat/webapps
+ENV HOSTURL=pass.local
+ENV CONTEXTPATH=/fcrepo/rest/submissions
+ENV MAXKEYWORDS=10
 
-EXPOSE 8080
+ADD  target/pass-keyword-service.war /usr/local/tomcat/webapps
 
 CMD ["catalina.sh", "run"]

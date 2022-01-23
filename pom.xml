@@ -35,15 +35,10 @@
         <maven.compiler.target>1.8</maven.compiler.target>
 
         <!-- plugin versions -->
-        <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
         <fabric8.docker.maven.plugin.version>0.30.0</fabric8.docker.maven.plugin.version>
         <maven.compiler.plugin.version>3.8.0</maven.compiler.plugin.version>
-        <maven.failsafe.plugin.version>2.22.0</maven.failsafe.plugin.version>
-        <maven.javadoc.plugin.version>3.0.1</maven.javadoc.plugin.version>
-        <maven.jar.plugin.version>3.1.1</maven.jar.plugin.version>
-        <maven.release.plugin.version>2.5.3</maven.release.plugin.version>
+        <maven.failsafe.plugin.version>2.22.1</maven.failsafe.plugin.version>
         <maven.surefire.plugin.version>2.22.0</maven.surefire.plugin.version>
-        <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
 
         <!-- dependency versions -->
         <javax.json.version>1.1.4</javax.json.version>
@@ -55,6 +50,10 @@
         <slf4j.version>1.7.25</slf4j.version>
         <logback-classic.version>1.2.3</logback-classic.version>
         <mockito.version>2.27.0</mockito.version>
+        <okhttp.version>4.9.3</okhttp.version>
+
+        <!-- integration test properties -->
+        <pass.keyword.service.port>8080</pass.keyword.service.port>
     </properties>
 
     <build>
@@ -63,17 +62,84 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
+                <version>${maven.compiler.plugin.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.0</version>
+                <version>${maven.surefire.plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>${fabric8.docker.maven.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>build-before-its</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>build</goal>
+                            <goal>start</goal>
+                        </goals>
+                        <configuration>
+                            <autoCreateCustomNetworks>true</autoCreateCustomNetworks>
+                            <startParallel>true</startParallel>
+                            <imagePullPolicy>IfNotPresent</imagePullPolicy>
+                            <images>
+                                <image>
+                                    <name>keyword-service-its</name>
+                                    <build>
+                                        <contextDir>${project.basedir}</contextDir>
+                                        <dockerFile>Dockerfile</dockerFile>
+                                    </build>
+                                    <run>
+                                        <skip>false</skip>
+                                        <network>
+                                            <name>its</name>
+                                        </network>
+                                        <ports>
+                                            <port>${pass.keyword.service.port}:8080</port>
+                                        </ports>
+                                        <env>
+                                            <HOSTURL>www.clickdimensions.com</HOSTURL>
+                                            <CONTEXTPATH>/links/TestPDFfile.pdf</CONTEXTPATH>
+                                            <MAXKEYWORDS>3</MAXKEYWORDS>
+                                        </env>
+                                        <wait>
+                                            <!-- wait until 400 code response or 10 seconds to guarantee tomcat startup -->
+                                            <http>
+                                                <url>http://localhost:${pass.keyword.service.port}/pass-keyword-service/keywords?file=test</url>
+                                                <method>GET</method>
+                                                <status>400</status>
+                                            </http>
+                                            <time>10000</time>
+                                        </wait>
+                                    </run>
+                                </image>
+                            </images>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>stop-after-its</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.22.0</version>
+                <version>${maven.failsafe.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -133,6 +199,10 @@
             <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>${okhttp.version}</version>
+        </dependency>
     </dependencies>
-
 </project>
